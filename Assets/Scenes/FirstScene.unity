@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 1369004830}
   m_Layer: 5
   m_Name: Potolok
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 1558244902}
   m_Layer: 5
   m_Name: 'RightWall '
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 1678375122}
   m_Layer: 5
   m_Name: Pol
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -773,7 +773,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 1
-  m_Mass: 1.3476415
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 2019289913}
   m_Layer: 5
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -885,3 +885,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 100, y: 780}
   m_EdgeRadius: 0
+--- !u!1001 &6977046408592978116
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379403, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977046409147379407, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}
+      propertyPath: m_Name
+      value: Imp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 19cfb52732f9bc9489be6cd42c93f5a2, type: 3}

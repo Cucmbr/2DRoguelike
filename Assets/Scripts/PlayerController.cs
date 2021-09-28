@@ -11,6 +11,6 @@ public class PlayerController : MonoBehaviour
     {
         //_rigidbody.velocity = new Vector3(_joystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, _joystick.Vertical * _moveSpeed);
         //transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
-        transform.position += new Vector3(_joystick.Horizontal * _moveSpeed, _joystick.Vertical * _moveSpeed,0); 
+        transform.position += new Vector3(_joystick.Horizontal * _moveSpeed, _joystick.Vertical * _moveSpeed,0);
     }
 }
