@@ -17,8 +17,7 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
             angle = flipRot ? -angle : angle;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            transform.position += new Vector3(_joystick.Horizontal * _moveSpeed, _joystick.Vertical * _moveSpeed, 0);
         }
-
-        transform.position += new Vector3(_joystick.Horizontal * _moveSpeed, _joystick.Vertical * _moveSpeed, 0);
     }
 }
