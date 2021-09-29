@@ -917,7 +917,6 @@ GameObject:
   - component: {fileID: 1777389397}
   - component: {fileID: 1777389396}
   - component: {fileID: 1777389395}
-  - component: {fileID: 1777389398}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1052,29 +1051,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 1777389395}
   _joystick: {fileID: 188518825}
   flipRot: 1
-  _moveSpeed: 0.25
---- !u!114 &1777389398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777389392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 668bf134cc5e3f349ad4c9472ec595c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 0
-  CurrentHealth: 0
-  MovementSpeed: 0
-  AtackSpeed: 0
-  Damage: 0
-  CriticalChanse: 0
-  CriticalMultiply: 0
-  HpBar:
-  - {fileID: 277808161}
-  - {fileID: 144596153}
+  _moveSpeed: 0.1
 --- !u!1 &2019289910
 GameObject:
   m_ObjectHideFlags: 0
