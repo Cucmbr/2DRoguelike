@@ -7,10 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8630938558238375628, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2787595833100202479, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: sprite
       value: 
       objectReference: {fileID: 21300000, guid: a40b4895f112a7e4abda20c823f04d09, type: 3}
+    - target: {fileID: -462587162524380145, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5366502048710841040, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: range
       value: 1
@@ -66,11 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5366502048710841047, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5366502048710841047, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5366502048710841047, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: m_LocalPosition.x
