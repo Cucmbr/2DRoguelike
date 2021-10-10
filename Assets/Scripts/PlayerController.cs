@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Только при использовании джостика возможно движение
         if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
         {
+            //Вычисляется изменение положения стика 
             float horizontal = _joystick.Direction.x;
             float vertical = _joystick.Direction.y;
-
+            //Вычисление нового угла для поворота игрока
             float angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
             angle = flipRot ? -angle : angle;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
