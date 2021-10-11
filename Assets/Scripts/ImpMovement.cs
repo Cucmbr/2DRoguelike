@@ -32,6 +32,8 @@ public class ImpMovement : MonoBehaviour
     {
         //Движение
         transform.Translate(_direction * _moveSpeed);
+
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -43,8 +45,8 @@ public class ImpMovement : MonoBehaviour
             {
                 if (Mathf.Abs(_direction.x) > 0.9f)
                 {
-                    float x = _direction.x < 0 ? Random.Range(0.1f, 0.9f) : Random.Range(-0.9f, -0.1f);
-                    int sign = Random.Range(0, 2);
+                    float x = _direction.x < 0 ? Random.Range(0, 1f) : Random.Range(-1f, 0);
+                    int sign = Random.Range(0, 1);
                     if (sign == 0)
                         sign = -1;
                     float y = sign * (1 - Mathf.Abs(x));
@@ -52,8 +54,8 @@ public class ImpMovement : MonoBehaviour
                 }
                 if (Mathf.Abs(_direction.y) > 0.9f)
                 {
-                    float y = _direction.y < 0 ? Random.Range(0.1f, 0.9f) : Random.Range(-0.9f, -0.1f);
-                    int sign = Random.Range(0, 2);
+                    float y = _direction.y < 0 ? Random.Range(0, 1f) : Random.Range(-1f, 0);
+                    int sign = Random.Range(0, 1);
                     if (sign == 0)
                         sign = -1;
                     float x = sign * (1 - Mathf.Abs(y));
