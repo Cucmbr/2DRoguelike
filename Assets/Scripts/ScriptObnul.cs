@@ -7,5 +7,6 @@ public class ScriptObnul : MonoBehaviour
         //ќбнуление временно-используемых переменных
         PlayerPrefs.DeleteKey("Last Range Weapon");
         PlayerPrefs.DeleteKey("Last Melee Weapon");
+        DontDestroyOnLoad(GameObject.Find("ServiceObjects"));
     }
 }

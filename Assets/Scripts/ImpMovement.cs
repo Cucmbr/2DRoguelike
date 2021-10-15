@@ -5,7 +5,7 @@ public class ImpMovement : MonoBehaviour
     public Vector2 _direction;
     public float _moveSpeed;
     public bool flipRot = true;
-    public Transform rotationTarget;
+    //public Transform rotationTarget;
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class ImpMovement : MonoBehaviour
         //Высчитывание угла для поворота спрайта по направлению движения самого объекта
         float angle = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
         angle = flipRot ? -angle : angle;
-        rotationTarget.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

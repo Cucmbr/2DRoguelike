@@ -20,7 +20,7 @@ public class WeaponScript : MonoBehaviour
 
             //Кэш объект для работы имеющейся системы. В них сохраняются последние используемые предметы.   
             Class = Instantiate(transform.GetComponent<WeaponClass>());
-
+            Class.GetComponent<Collider2D>().enabled = false;
             //Перезапись кэш объектов
             if (transform.GetComponent<WeaponClass>().range == 0)
             {
@@ -45,7 +45,6 @@ public class WeaponScript : MonoBehaviour
                 Destroy(GameObject.Find("Last Range Weapon"));
             }
             Destroy(this.gameObject);
-            DontDestroyOnLoad(Class);
         }
         
         
@@ -69,4 +68,5 @@ public class WeaponScript : MonoBehaviour
             NearPlayer = false;
         }
     }
+    
 }
