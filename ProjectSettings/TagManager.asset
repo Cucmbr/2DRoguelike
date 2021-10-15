@@ -8,6 +8,8 @@ TagManager:
   - Imp
   - Weapon
   - Enemy
+  - EquipedWeapon
+  - Consumable
   layers:
   - Default
   - TransparentFX
@@ -15,11 +17,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - g
-  - 
-  - 
-  - 
+  - Fly
+  - Monsters
+  - Player
+  - Wall
+  - Weapon
   - 
   - 
   - 
