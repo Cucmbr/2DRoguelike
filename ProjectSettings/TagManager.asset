@@ -8,6 +8,9 @@ TagManager:
   - Imp
   - Weapon
   - Enemy
+  - EquipedWeapon
+  - Artifact
+  - Consumable
   layers:
   - Default
   - TransparentFX
