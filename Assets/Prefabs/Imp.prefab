@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 2278874626053870094}
   - component: {fileID: 2278874626053870093}
   - component: {fileID: 2278874626053870092}
+  - component: {fileID: 2865606329559656440}
   m_Layer: 0
   m_Name: Imp
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,3 +170,18 @@ MonoBehaviour:
   _moveSpeed: 0.1
   flipRot: 1
   rotationTarget: {fileID: 2278874624207218573}
+--- !u!114 &2865606329559656440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2278874626053870091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d7466797aa91f4688ae181921afec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHP: 10
+  CurentHP: 10
+  Damage: 5
