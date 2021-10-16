@@ -21,7 +21,7 @@ public class PlayerScript : MonoBehaviour
 
     static public WeaponClass[] EquipedWeapon = new WeaponClass[2];
     public GameObject[] Buttons;
-    static public GameObject[] _Buttons; // Ne sdelano
+    static public GameObject[] _Buttons; 
     static public int ButtonCounter = 0;
     static public int CurrentRange = 0;
 
@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviour
     {
         //Атака ближнего боя
         var anim = transform.GetChild(0).GetComponent<Animation>();
-        anim.Play("АтакаСтартовымМечом");
+        anim.Play("Sword Attack");
     }
 
     private void Equip(WeaponClass item)

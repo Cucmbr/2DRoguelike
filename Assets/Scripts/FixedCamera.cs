@@ -7,7 +7,7 @@ public class FixedCamera : MonoBehaviour
     void FixedUpdate()
     {
         var pos = player.position;
-        pos.z = 0;
+        pos.z = -1;
         transform.position = pos;
     }
 }

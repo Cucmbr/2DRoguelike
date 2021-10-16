@@ -9,7 +9,6 @@ TagManager:
   - Weapon
   - Enemy
   - EquipedWeapon
-  - Artifact
   - Consumable
   layers:
   - Default
@@ -18,11 +17,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Dog
-  - Imp
-  - Middle
+  - Fly
+  - Monsters
   - Player
-  - 
+  - Wall
+  - Weapon
   - 
   - 
   - 

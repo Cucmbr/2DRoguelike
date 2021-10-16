@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8084516018292483661}
   - component: {fileID: 8084516018292483660}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: DogGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 8084516018851137165}
   - component: {fileID: 4451786161328338242}
   - component: {fileID: 7043118819368434375}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Dog
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,8 +111,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8084516018851137137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.05, y: 0.08550625, z: -0.29519472}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.05, y: 0.1, z: 0}
+  m_LocalScale: {x: 40, y: 40, z: 1}
   m_Children:
   - {fileID: 8084516018292483661}
   m_Father: {fileID: 0}
@@ -159,12 +159,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 1.63
+  radius: 0.05
   height: 2
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 7
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -176,7 +176,7 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 0.6
-  pickNextWaypointDist: 1.34
+  pickNextWaypointDist: 1.8
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
