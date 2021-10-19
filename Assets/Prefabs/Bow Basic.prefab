@@ -40,7 +40,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a40b4895f112a7e4abda20c823f04d09, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22b12d6578001df44b520b16278b71a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,15 +97,26 @@ PrefabInstance:
     - target: {fileID: 5366502048710841040, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: WeaponSprite
       value: 
-      objectReference: {fileID: 21300000, guid: a40b4895f112a7e4abda20c823f04d09, type: 3}
+      objectReference: {fileID: 21300000, guid: 22b12d6578001df44b520b16278b71a2, type: 3}
     - target: {fileID: 5366502048710841040, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: Weapondamage
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5366502048710841040, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
+      propertyPath: WeaponSprite.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 22b12d6578001df44b520b16278b71a2, type: 3}
+    - target: {fileID: 5366502048710841040, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
+      propertyPath: WeaponSprite.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e9aec2118510004dbab2ebf49ab3801, type: 3}
+    - target: {fileID: 5366502048710841040, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
+      propertyPath: WeaponSprite.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 53ed1069c3b355e4cba0393020677569, type: 3}
     - target: {fileID: 5366502048710841044, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: m_Name
-      value: "\u041B\u0443\u043A\u0421\u0442\u0430\u0440\u0442\u043E\u0432\u044B\u0439
-        Variant"
+      value: Bow Basic
       objectReference: {fileID: 0}
     - target: {fileID: 5366502048710841044, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
       propertyPath: m_TagString

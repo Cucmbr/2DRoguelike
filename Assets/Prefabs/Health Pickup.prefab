@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 0
-  CurrentHealth: 2
+  CurrentHealth: 5
   MovementSpeed: 0
   AtackSpeed: 0
   Damage: 0
