@@ -3,7 +3,7 @@ using UnityEngine;
 public class ImpMovement : MonoBehaviour
 {
     public Vector2 _direction;
-    public float _moveSpeed;
+    public float _moveSpeed = 0.1f;
     public bool flipRot = true;
     public Transform rotationTarget;
     public Transform player;
