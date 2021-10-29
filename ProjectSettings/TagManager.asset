@@ -11,6 +11,9 @@ TagManager:
   - EquipedWeapon
   - Consumable
   - Arrow
+  - AutoLutingWawe
+  - Chest
+  - Artifact
   layers:
   - Default
   - TransparentFX

@@ -7,8 +7,10 @@ public class PlayerScript : MonoBehaviour
     [Header("Характеристики")]
     static public float MaxHealth = 10;
     static public float CurrentHealth = 1;
+    public int coins;
 
     static public float MovementSpeed = 0.15f;
+    float newMS ;
     static public float AtackSpeed;
 
     static public float Damage;
@@ -29,14 +31,17 @@ public class PlayerScript : MonoBehaviour
 
 
     static public WeaponClass CurrentWeapon;
+    public Vector3[] WeaponPos;
+    public Vector3[] WeaponScale;
     public GameObject[] StartWeapon;
     [SerializeField] Image[] HpBar;
 
-    GameObject EmtyForEquip;
-    
+    GameObject EmptyForEquip;
 
     static public GameObject CurrentButton; 
     public GameObject DrowingButton;
+
+    public bool isWall;
 
     static public List<ArtifactClass> EquipedArtifacts = new List<ArtifactClass>(0);
 
@@ -44,13 +49,14 @@ public class PlayerScript : MonoBehaviour
     Coroutine lastRoutine = null;
     static public bool isAttack = false;
     int lastWeap;
-
+    static public float AdditionalDamage;
     private void Awake()
     {    
         //Инициализация необходимых переменных игрока
         _Buttons = Buttons;
         _Buttons[0].GetComponent<Button>().onClick = GameObject.Find("ZeroButton").GetComponent<Button>().onClick;
         _Buttons[1].GetComponent<Button>().onClick = GameObject.Find("FirstButton").GetComponent<Button>().onClick;
+        _Buttons[2].GetComponent<Button>().onClick = GameObject.Find("ThirdButton").GetComponent<Button>().onClick;
         CurrentButton = _Buttons[ButtonCounter];
         EquipedWeapon[0] = StartWeapon[0].GetComponent<WeaponClass>();
         EquipedWeapon[1] = StartWeapon[1].GetComponent<WeaponClass>();
@@ -84,23 +90,34 @@ public class PlayerScript : MonoBehaviour
 
         //Отрисовка урона текущего оружия
         DmgText.text = CurrentWeapon.Weapondamage.ToString();
+
     }
 
-    static public void ChangeWeapon()
+     public void ChangeWeapon()
     {
         if (!isAttack)
         {
             //Смена текущего оружия
             if (CurrentRange == 1)
+            {
+                transform.GetChild(0).transform.localScale = WeaponScale[0];
+                transform.GetChild(0).transform.localPosition = WeaponPos[0];
+                transform.GetChild(0).transform.localRotation = GameObject.Find("ZeroButton").transform.rotation;
                 CurrentRange = 0;
+            }
             else if (CurrentRange == 0)
+            {
+                transform.GetChild(0).transform.localScale = WeaponScale[1];
+                transform.GetChild(0).transform.localPosition = WeaponPos[1];
+                transform.GetChild(0).transform.localRotation = GameObject.Find("FirstButton").transform.rotation;
                 CurrentRange = 1;
+            }
             CurrentWeapon = EquipedWeapon[CurrentRange];
         }
     }
 
-   
 
+    
     private void Equip(WeaponClass item)
     {
         //На месте предидущего оружия появляется то,что было экипированно
@@ -162,8 +179,9 @@ public class PlayerScript : MonoBehaviour
         AtackSpeed += item.GetComponent<ArtifactClass>().AtackSpeed;
         CriticalChanse += item.GetComponent<ArtifactClass>().CriticalChanse;
         CriticalMultiply += item.GetComponent<ArtifactClass>().CriticalMultiply;
-            
-            
+        coins += item.GetComponent<ArtifactClass>().coins;
+
+
         Destroy(item.gameObject);
     }
     public void Use(ConsumableClass item)
@@ -178,7 +196,7 @@ public class PlayerScript : MonoBehaviour
         AtackSpeed += item.GetComponent<ConsumableClass>().AtackSpeed;
         CriticalChanse += item.GetComponent<ConsumableClass>().CriticalChanse;
         CriticalMultiply += item.GetComponent<ConsumableClass>().CriticalMultiply;
-
+        coins += item.GetComponent<ConsumableClass>().coins;
 
         Destroy(item.gameObject);
     }
@@ -189,11 +207,16 @@ public class PlayerScript : MonoBehaviour
         if (collision.tag == "Weapon" || collision.tag == "Artifact")
         {
             CurrentButton = _Buttons[1];
-            EmtyForEquip = collision.gameObject;
+            EmptyForEquip = collision.gameObject;
         }
         if (collision.tag == "Consumable")
         {
             Use(collision.gameObject.GetComponent<ConsumableClass>());
+        }
+        if(collision.tag == "Chest")
+        {
+            CurrentButton = _Buttons[2];
+            EmptyForEquip = collision.gameObject;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -203,45 +226,70 @@ public class PlayerScript : MonoBehaviour
         {
             CurrentButton = _Buttons[0];
         }
+        if (collision.tag == "Chest")
+        {
+            CurrentButton = _Buttons[0];
+        }
+    }
+    public void EquipClick()
+    {
+        if (EmptyForEquip.GetComponent<WeaponClass>() != null)
+            Equip(EmptyForEquip.GetComponent<WeaponClass>());
+        else
+            Equip(EmptyForEquip.GetComponent<ArtifactClass>());
     }
     public void Atack()
     {
+        newMS = MovementSpeed;
         isAttack = true;
         if (CurrentRange == 0)
         {
             //Атака ближнего боя
+            transform.GetChild(0).GetChild(0).gameObject.active = false;
+            transform.GetChild(0).GetChild(1).gameObject.active = false;
+            transform.GetChild(0).GetChild(2).gameObject.active = false;
             lastRoutine = StartCoroutine(MeleeAttack());
             lastWeap = 0;
         }
         else if(CurrentRange == 1)
         {
             //Атака дальнего боя
+            var scale = transform.GetChild(0).GetChild(3).transform.localScale;
+            scale.y = 1;
+            transform.GetChild(0).GetChild(3).transform.localScale = scale;
+            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
             lastRoutine = StartCoroutine(RangeAttack());
             lastWeap = 1;
         }
     }
+    public void OpenClick()
+    {
+       EmptyForEquip.GetComponent<ChestScript>().Open();
+    }
     IEnumerator MeleeAttack()
     {
         yield return new WaitForSeconds(0);
+        atackTime = atackTime + Time.deltaTime;
         if (atackTime >= 0)
         {
+            MovementSpeed = newMS - newMS / 10;
             transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-            transform.GetChild(0).GetChild(0).GetComponent<PolygonCollider2D>().isTrigger = true;
-            Damage = 1;
+            transform.GetChild(0).GetChild(0).gameObject.active = true;
+            AdditionalDamage = 1;
         }
-        atackTime = atackTime+ Time.deltaTime;
-        Debug.Log(atackTime);
-        if (atackTime >= 1)
+         if (atackTime >= 1)
         {
+            MovementSpeed = newMS - newMS / 3;
             transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = true;
-            transform.GetChild(0).GetChild(1).GetComponent<PolygonCollider2D>().isTrigger = true;
-            Damage = 2;
+            transform.GetChild(0).GetChild(1).gameObject.active = true;
+            AdditionalDamage = 2;
         }
-        if (atackTime >= 1.5f)
+         if(atackTime >= 1.5f)
         {
+            MovementSpeed = newMS - newMS / 2;
             transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
-            transform.GetChild(0).GetChild(2).GetComponent<PolygonCollider2D>().isTrigger = true;
-            Damage = 3;
+            transform.GetChild(0).GetChild(2).gameObject.active = true;
+            AdditionalDamage = 3;
         }
         lastRoutine = StartCoroutine(MeleeAttack());
         
@@ -249,49 +297,66 @@ public class PlayerScript : MonoBehaviour
     IEnumerator RangeAttack()
     {
         yield return new WaitForSeconds(0);
+        var scale = transform.GetChild(0).GetChild(3).transform.localScale;
+        if (scale.y < 4.5f)
+            scale.y += Time.deltaTime*0.9f;
+            transform.GetChild(0).GetChild(3).transform.localScale = scale;
         if (atackTime >= 0)
         {
+            MovementSpeed = newMS - newMS / 10;
+            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = EquipedWeapon[1].WeaponSprite[0];
-            Damage = 1;
+            AdditionalDamage = 1;
         }
         atackTime = atackTime + Time.deltaTime;
         Debug.Log(atackTime);
         if (atackTime >= 1)
         {
+            MovementSpeed = newMS - newMS / 3;
+            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().color = Color.yellow;
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = EquipedWeapon[1].WeaponSprite[1];
-            Damage = 2;
+            AdditionalDamage = 2;
         }
         if (atackTime >= 1.5f)
         {
+            MovementSpeed = newMS - newMS / 2;
+            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().color = Color.green;
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = EquipedWeapon[1].WeaponSprite[2];
-            Damage = 3;
+            AdditionalDamage = 3;
         }
         lastRoutine = StartCoroutine(RangeAttack());
         
     }
     public void StopAtack()
     {
-        if (lastWeap == 0)
+        MovementSpeed = newMS;
+        if (lastWeap == 0 && !isWall)
         {
             Debug.Log("MeleeAtack");
             var anim = transform.GetChild(0).GetComponent<Animation>();
             anim.Play("Sword Attack");
         }
-        else 
+        else if(lastWeap == 1)
         {
             Debug.Log("RangeAtack");
-            Instantiate(Arrow, transform.position, transform.rotation);
+            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            var _arrow = Instantiate(Arrow, transform.position, transform.rotation);
+            _arrow.GetComponent<Arrowscript>().startPos = transform.position;
+            _arrow.GetComponent<Arrowscript>().distance = transform.GetChild(0).GetChild(3).transform.localScale.y*2.1f;
+            _arrow.GetComponent<Arrowscript>().Damage = AdditionalDamage;
+        }
+        else if (lastWeap == 0 && isWall)
+        {
+            transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            transform.GetChild(0).GetChild(0).gameObject.active = false;
+            transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
+            transform.GetChild(0).GetChild(1).gameObject.active = false;
+            transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
+            transform.GetChild(0).GetChild(2).gameObject.active = false;
         }
         isAttack = false;
         StopCoroutine(lastRoutine);
         atackTime = 0;
-    }
-    public void EquipClick()
-    {
-        if(EmtyForEquip.GetComponent<WeaponClass>() != null)
-            Equip(EmtyForEquip.GetComponent<WeaponClass>());
-        else 
-            Equip(EmtyForEquip.GetComponent<ArtifactClass>()); 
     }
 }
 
