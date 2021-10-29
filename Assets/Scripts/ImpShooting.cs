@@ -8,7 +8,6 @@ public class ImpShooting : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine(ShootTimer());
         InvokeRepeating("Shoot", 3f, 5f);
     }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5855150210600154288}
   - component: {fileID: 5855150210600154289}
   - component: {fileID: 5855150210600154290}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health Pickup
   m_TagString: Consumable
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 0
-  CurrentHealth: 2
+  CurrentHealth: 5
   MovementSpeed: 0
   AtackSpeed: 0
   Damage: 0

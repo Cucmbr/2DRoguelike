@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 2865606329559656440}
   m_Layer: 6
   m_Name: Imp
-  m_TagString: Enemy
+  m_TagString: Imp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,8 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4627e1dbcd6cc4287708ac453d9af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impProjectile: {fileID: 0}
-  projectileSpeed: 0.06
+  impProjectile: {fileID: 3274920462577711462, guid: d372d97c0912d3d4794841916ab325d0, type: 3}
 --- !u!114 &2865606329559656440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,5 +199,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHP: 10
   CurentHP: 10
-  Damage: 5
+  Damage: 1
   HPPickUp: {fileID: 5855150210600154292, guid: bddfcf3739ceff443a416d505ffb7457, type: 3}
