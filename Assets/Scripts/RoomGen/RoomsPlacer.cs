@@ -16,10 +16,10 @@ public class RoomsPlacer : MonoBehaviour
         spawnedRooms = new Room[5, 5];
         spawnedRooms[2, 2] = StartingRoom;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 13; i++)
         {
             // Это вот просто убрать чтобы подземелье генерировалось мгновенно на старте
-            yield return new WaitForSecondsRealtime(0.7f);
+            yield return new WaitForSecondsRealtime(0.2f);
 
             PlaceOneRoom();
         }
@@ -47,7 +47,7 @@ public class RoomsPlacer : MonoBehaviour
         // Эту строчку можно заменить на выбор комнаты с учётом её вероятности, вроде как в ChunksPlacer.GetRandomChunk()
         Room newRoom = Instantiate(RoomPrefabs[Random.Range(0, RoomPrefabs.Length)]);
 
-        int limit = 500;
+        int limit = 2500;
         while (limit-- > 0)
         {
             // Эту строчку можно заменить на выбор положения комнаты с учётом того насколько он далеко/близко от центра,

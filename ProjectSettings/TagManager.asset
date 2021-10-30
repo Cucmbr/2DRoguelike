@@ -11,6 +11,8 @@ TagManager:
   - EquipedWeapon
   - Consumable
   - Room
+  - Chest
+  - Door
   layers:
   - Default
   - TransparentFX
