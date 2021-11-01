@@ -24,6 +24,7 @@ public class ConsumableClass : MonoBehaviour
     }
     IEnumerator AutoLutting()
     {
+        //летит к игроку
         yield return new WaitForSeconds(0);
         transform.position = Vector3.Slerp(transform.position, GameObject.Find("Player").transform.position, 0.05f);
         StartCoroutine(AutoLutting());

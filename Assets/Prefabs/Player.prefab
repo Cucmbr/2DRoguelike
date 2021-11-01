@@ -426,7 +426,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7111773302332889572}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -695,8 +695,12 @@ MonoBehaviour:
   Buttons:
   - {fileID: 3172655124380394823, guid: bcce3a673ed80fa4684646baaf85aab0, type: 3}
   - {fileID: 8621909990173112332, guid: 68a19b2113e30aa4695a3120512c3e0b, type: 3}
-  WeaponPos: []
-  WeaponScale: []
+  WeaponPos:
+  - {x: 0.5, y: 0.59, z: 0}
+  - {x: 0, y: 0.3, z: 0}
+  WeaponScale:
+  - {x: 1, y: 1, z: 1}
+  - {x: 0.65, y: 1, z: 1}
   StartWeapon:
   - {fileID: 5366502048710841044, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
   - {fileID: 400384055248469748, guid: fcd21dfa9b801414f977c6893c45ca93, type: 3}

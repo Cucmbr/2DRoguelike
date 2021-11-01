@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public Rigidbody2D _rigidbody;
-    [SerializeField] public FixedJoystick moving_joystick;
-    [SerializeField] public FixedJoystick attack_joystick;
+    Rigidbody2D _rigidbody;
+    FixedJoystick moving_joystick;
+    FixedJoystick attack_joystick;
     public bool flipRot = true;
     public float _moveSpeed;
 
+    private void Awake()
+    {
+        _rigidbody = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        moving_joystick = GameObject.Find("MovementJoystic").GetComponent<FixedJoystick>();
+        attack_joystick = GameObject.Find("AttackJoystic").GetComponent<FixedJoystick>();
+    }
     private void FixedUpdate()
     {
         _moveSpeed = PlayerScript.MovementSpeed;

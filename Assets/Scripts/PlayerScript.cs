@@ -19,8 +19,8 @@ public class PlayerScript : MonoBehaviour
 
     private float fill = 1;
 
-    public Text HpText;
-    public Text DmgText;
+    Text HpText;
+    Text DmgText;
 
     static public WeaponClass[] EquipedWeapon = new WeaponClass[2];
     public GameObject Arrow;
@@ -39,7 +39,7 @@ public class PlayerScript : MonoBehaviour
     GameObject EmptyForEquip;
 
     static public GameObject CurrentButton; 
-    public GameObject DrowingButton;
+    GameObject DrowingButton;
 
     public bool isWall;
 
@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
         _Buttons = Buttons;
         _Buttons[0].GetComponent<Button>().onClick = GameObject.Find("ZeroButton").GetComponent<Button>().onClick;
         _Buttons[1].GetComponent<Button>().onClick = GameObject.Find("FirstButton").GetComponent<Button>().onClick;
-        _Buttons[2].GetComponent<Button>().onClick = GameObject.Find("ThirdButton").GetComponent<Button>().onClick;
+        _Buttons[2].GetComponent<Button>().onClick = GameObject.Find("SecondButton").GetComponent<Button>().onClick;
         CurrentButton = _Buttons[ButtonCounter];
         EquipedWeapon[0] = StartWeapon[0].GetComponent<WeaponClass>();
         EquipedWeapon[1] = StartWeapon[1].GetComponent<WeaponClass>();
@@ -69,7 +69,11 @@ public class PlayerScript : MonoBehaviour
 
         CurrentWeapon = EquipedWeapon[0];
 
+        HpText = GameObject.Find("HpText").GetComponent<Text>();
+        DmgText = GameObject.Find("DmgText").GetComponent<Text>();
+
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = CurrentWeapon.WeaponSprite[0];
+        DrowingButton = GameObject.Find("ChangeWeapon");
     }
 
 
