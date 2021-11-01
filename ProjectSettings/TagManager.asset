@@ -10,9 +10,23 @@ TagManager:
   - Enemy
   - EquipedWeapon
   - Consumable
-  - Room
+  - Arrow
+  - Fireball  - Room
   - Chest
-  - Door
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Water
+  - UI
+  - Fly
+  - Monsters
+  - Player
+  - Wall
+  - Weapon
+  - Projectiles
+  - Fireball
+  - PathFinder
+  - R trigger
   layers:
   - Default
   - TransparentFX
@@ -21,13 +35,13 @@ TagManager:
   - Water
   - UI
   - Fly
-  - Monsters
+  - Monster
   - Player
   - Wall
   - Weapon
-  - 
-  - 
-  - 
+  - Projectiles
+  - Room
+  - Door
   - 
   - 
   - 
