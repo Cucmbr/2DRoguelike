@@ -4,6 +4,7 @@ public class ArtifactClass : MonoBehaviour
 {
     public float MaxHealth;
     public float CurrentHealth;
+    public int coins;
 
     public float MovementSpeed;
     public float AtackSpeed;

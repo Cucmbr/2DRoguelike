@@ -3,6 +3,10 @@ using UnityEngine;
 public class FixedCamera : MonoBehaviour
 {
     public Transform player;
+    private void Awake()
+    {
+        player = GameObject.Find("Player").transform;
+    }
 
     void FixedUpdate()
     {

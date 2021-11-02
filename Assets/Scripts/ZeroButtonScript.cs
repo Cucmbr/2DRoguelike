@@ -5,6 +5,6 @@ public class ZeroButtonScript : MonoBehaviour
 {
     void Awake()
     {
-        transform.GetComponent<Button>().onClick.AddListener(PlayerScript.ChangeWeapon);
+        transform.GetComponent<Button>().onClick.AddListener(GameObject.Find("Player").GetComponent<PlayerScript>().ChangeWeapon);
     }
 }

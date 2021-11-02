@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5855150210600154288}
   - component: {fileID: 5855150210600154289}
   - component: {fileID: 5855150210600154290}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Health Pickup
   m_TagString: Consumable
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.000000007450581, y: 0.00000047683716}
   serializedVersion: 2
-  m_Radius: 0.66
+  m_Radius: 0.45
 --- !u!114 &5855150210600154290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 0
   CurrentHealth: 5
+  coins: 0
   MovementSpeed: 0
   AtackSpeed: 0
   Damage: 0

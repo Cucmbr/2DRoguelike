@@ -11,6 +11,9 @@ TagManager:
   - EquipedWeapon
   - Consumable
   - Arrow
+  - AutoLutingWawe
+  - Chest
+  - Artifact
   - Fireball  - Room
   - Chest
   - Default
@@ -26,7 +29,19 @@ TagManager:
   - Projectiles
   - Fireball
   - PathFinder
-  - R trigger
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Water
+  - UI
+  - Fly
+  - Monster
+  - Player
+  - Wall
+  - Weapon
+  - Projectiles
+  - Room
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -38,10 +53,10 @@ TagManager:
   - Monster
   - Player
   - Wall
-  - Weapon
+  - EquipedWeapon
   - Projectiles
-  - Room
-  - Door
+  - Items
+  - 
   - 
   - 
   - 
