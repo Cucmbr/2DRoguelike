@@ -2401,7 +2401,7 @@ MonoBehaviour:
   _rightBotCornerOfSpawn: {x: 10.63, y: -4.72}
   _amountOfEnemies: 5
   _enemies:
-  - {fileID: 2278874626053870091, guid: 09cb614f93150d64aa7b2bc8ae7ac8b4, type: 3}
+  - {fileID: 8610818808838831760, guid: 09cb614f93150d64aa7b2bc8ae7ac8b4, type: 3}
   - {fileID: 8084516018851137137, guid: 6b6d54b79d6b7da49935b14acd994b54, type: 3}
 --- !u!4 &959842948
 Transform:
