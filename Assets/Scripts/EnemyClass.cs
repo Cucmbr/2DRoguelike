@@ -14,11 +14,11 @@ public class EnemyClass : MonoBehaviour
     {
         if (collision.CompareTag("EquipedWeapon"))
         {
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage;
+            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage;
         }
         if (collision.CompareTag("Arrow"))
         {
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage;
+            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage;
             Destroy(collision.gameObject);
         }
         if (CurentHP <= 0 && death == false)
