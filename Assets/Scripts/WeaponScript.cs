@@ -54,8 +54,8 @@ public class WeaponScript : MonoBehaviour
         //Вхождение в радиус подбора
         if (collision.tag == "Player")
         {
-            PlayerScript.CurrentButton = PlayerScript._Buttons[1];
-            PlayerScript.CurrentButton.GetComponent<Button>().onClick = transform.GetComponent<Button>().onClick;
+            GameObject.Find("Player").GetComponent<PlayerScript>().CurrentButton = PlayerScript._Buttons[1];
+            GameObject.Find("Player").GetComponent<PlayerScript>().CurrentButton.GetComponent<Button>().onClick = transform.GetComponent<Button>().onClick;
             NearPlayer = true;
         }
     }
@@ -64,7 +64,7 @@ public class WeaponScript : MonoBehaviour
         //Выход из радиуса подбора
         if (collision.tag == "Player")
         {
-            PlayerScript.CurrentButton = PlayerScript._Buttons[0];
+            GameObject.Find("Player").GetComponent<PlayerScript>().CurrentButton = PlayerScript._Buttons[0];
             NearPlayer = false;
         }
     }

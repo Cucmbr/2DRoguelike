@@ -11,6 +11,7 @@ public class ImpMovement : MonoBehaviour
     private void Start()
     {
         //Высчитывается положение Player и задается направление движения Imp'а в его направлении
+        player = GameObject.Find("Player").transform;
         Vector3 targetPos = player.position;
 
         targetPos.z = 0f;

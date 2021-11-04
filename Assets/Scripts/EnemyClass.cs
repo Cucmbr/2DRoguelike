@@ -14,18 +14,19 @@ public class EnemyClass : MonoBehaviour
     {
         if (collision.CompareTag("EquipedWeapon"))
         {
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage;
+            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage;
+            Debug.Log(PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage);
         }
         if (collision.CompareTag("Arrow"))
         {
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage;
+            CurentHP -= PlayerScript.Damage+collision.GetComponent<Arrowscript>().Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage;
+            Debug.Log(PlayerScript.Damage + collision.GetComponent<Arrowscript>().Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage);
             Destroy(collision.gameObject);
         }
         if (CurentHP <= 0 && death == false)
         {
             death = true;
             BSRoom.enemies -= 1;
-            Debug.Log("gbplf" + BSRoom.enemies.ToString());
             var pickUp = Instantiate(HPPickUp);
             pickUp.transform.position = transform.position;
             pickUp.transform.localScale = new Vector3(1, 1, 1);

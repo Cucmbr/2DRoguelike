@@ -167,4 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 0.06
   _direction: {x: 0, y: 0}
-  _impPrefab: {fileID: 2278874626053870091, guid: 09cb614f93150d64aa7b2bc8ae7ac8b4, type: 3}
+  _impPrefab: {fileID: 2278874626053870091, guid: 90e887718633cbf4aa223f68c144257f, type: 3}

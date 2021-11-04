@@ -64,8 +64,10 @@ public class BSRoom : MonoBehaviour
     {
         foreach (GameObject wall in walls)
         {
-                wall.gameObject.SetActive(false);
+            wall.gameObject.SetActive(false);
         }
+        var anim = GameObject.Find("Player").transform.GetChild(1).GetComponent<Animation>();
+        anim.Play("AutoLutingAnim");
         wallsDestroyed = true;
     }
     void SpawnMonsters()

@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     public int coins;
 
     static public float MovementSpeed = 0.15f;
-    float newMS ;
+    float newMS;
     static public float AtackSpeed;
 
     static public float Damage;
@@ -24,12 +24,12 @@ public class PlayerScript : MonoBehaviour
     static public WeaponClass[] EquipedWeapon = new WeaponClass[2];
     public GameObject Arrow;
     public GameObject[] Buttons;
-    static public GameObject[] _Buttons; 
+    static public GameObject[] _Buttons;
     static public int ButtonCounter = 0;
-    static public int CurrentRange = 0;
+    public int CurrentRange = 0;
 
 
-    static public WeaponClass CurrentWeapon;
+    public WeaponClass CurrentWeapon;
     public Vector3[] WeaponPos;
     public Vector3[] WeaponScale;
     public GameObject[] StartWeapon;
@@ -37,8 +37,8 @@ public class PlayerScript : MonoBehaviour
 
     GameObject EmptyForEquip;
 
-    static public GameObject CurrentButton; 
-    GameObject DrowingButton;
+    public GameObject CurrentButton;
+    public GameObject DrowingButton;
 
     public bool isWall;
 
@@ -46,17 +46,19 @@ public class PlayerScript : MonoBehaviour
 
     private float atackTime = 0;
     Coroutine lastRoutine = null;
-    static public bool isAttack = false;
+    public bool isAttack = false;
+    public bool isLastAttack = false;
+    public bool canStop = false;
     int lastWeap;
     static public float AdditionalDamage;
     private void Awake()
-    {    
-        //Инициализация необходимых переменных игрока
-        _Buttons = Buttons;
+    {
+        //Инициализация необходимых переменных игрок
+        _Buttons = GameObject.Find("Player").GetComponent<PlayerScript>().Buttons;
         _Buttons[0].GetComponent<Button>().onClick = GameObject.Find("ZeroButton").GetComponent<Button>().onClick;
-        _Buttons[1].GetComponent<Button>().onClick = GameObject.Find("FirstButton").GetComponent<Button>().onClick;
-        _Buttons[2].GetComponent<Button>().onClick = GameObject.Find("SecondButton").GetComponent<Button>().onClick;
-        CurrentButton = _Buttons[ButtonCounter];
+        _Buttons[1].GetComponent<Button>().onClick = GameObject.Find("FirstButton").transform.GetComponent<Button>().onClick;
+        _Buttons[2].GetComponent<Button>().onClick = GameObject.Find("SecondButton").transform.GetComponent<Button>().onClick;
+        GameObject.Find("Player").GetComponent<PlayerScript>().CurrentButton = PlayerScript._Buttons[0];
         EquipedWeapon[0] = StartWeapon[0].GetComponent<WeaponClass>();
         EquipedWeapon[1] = StartWeapon[1].GetComponent<WeaponClass>();
 
@@ -96,7 +98,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-     public void ChangeWeapon()
+    public void ChangeWeapon()
     {
         if (!isAttack)
         {
@@ -120,7 +122,7 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    
+
     private void Equip(WeaponClass item)
     {
         //На месте предидущего оружия появляется то,что было экипированно
@@ -143,9 +145,9 @@ public class PlayerScript : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("Last Range Weapon", PlayerPrefs.GetInt("Last Range Weapon") + 1);
-            Cash.name = "Last Range Weapon"; 
+            Cash.name = "Last Range Weapon";
         }
-        Cash.transform.SetParent(GameObject.Find("ServiceObjects").transform);
+        Cash.transform.SetParent(GameObject.Find("ServiceObjects(dd)").transform);
         if (PlayerPrefs.GetInt("Last Melee Weapon") >= 2 && item.transform.GetComponent<WeaponClass>().range == 0)
         {
             Destroy(GameObject.Find("Last Melee Weapon"));
@@ -165,7 +167,7 @@ public class PlayerScript : MonoBehaviour
 
         //Кэш объект для работы имеющейся системы. В них сохраняются последние используемые предметы.   
         Cash = Instantiate(item.transform.GetComponent<ArtifactClass>());
-        Cash.transform.SetParent(GameObject.Find("ServiceObjects").transform);
+        Cash.transform.SetParent(GameObject.Find("ServiceObjects(dd)").transform);
         Cash.GetComponent<Collider2D>().enabled = false;
         Cash.transform.localScale = new Vector3(1, 1, 1);
         Cash.gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -216,7 +218,7 @@ public class PlayerScript : MonoBehaviour
         {
             Use(collision.gameObject.GetComponent<ConsumableClass>());
         }
-        if(collision.tag == "Chest")
+        if (collision.tag == "Chest")
         {
             CurrentButton = _Buttons[2];
             EmptyForEquip = collision.gameObject;
@@ -244,36 +246,42 @@ public class PlayerScript : MonoBehaviour
     }
     public void Atack()
     {
-        newMS = MovementSpeed;
-        isAttack = true;
-        if (CurrentRange == 0)
+        if (!isLastAttack)
         {
-            //Атака ближнего боя
-            transform.GetChild(0).GetChild(0).gameObject.active = false;
-            transform.GetChild(0).GetChild(1).gameObject.active = false;
-            transform.GetChild(0).GetChild(2).gameObject.active = false;
-            lastRoutine = StartCoroutine(MeleeAttack());
-            lastWeap = 0;
-        }
-        else if(CurrentRange == 1)
-        {
-            //Атака дальнего боя
-            var scale = transform.GetChild(0).GetChild(3).transform.localScale;
-            scale.y = 1;
-            transform.GetChild(0).GetChild(3).transform.localScale = scale;
-            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-            lastRoutine = StartCoroutine(RangeAttack());
-            lastWeap = 1;
+            newMS = MovementSpeed;
+            if (CurrentRange == 0)
+            {
+
+                //Атака ближнего боя
+                transform.GetChild(0).GetChild(0).gameObject.active = false;
+                transform.GetChild(0).GetChild(1).gameObject.active = false;
+                transform.GetChild(0).GetChild(2).gameObject.active = false;
+                lastRoutine = StartCoroutine(MeleeAttack());
+                lastWeap = 0;
+            }
+            else if (CurrentRange == 1)
+            {
+                //Атака дальнего боя
+                var scale = transform.GetChild(0).GetChild(3).transform.localScale;
+                scale.y = 1;
+                transform.GetChild(0).GetChild(3).transform.localScale = scale;
+                transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                lastRoutine = StartCoroutine(RangeAttack());
+                lastWeap = 1;
+            }
+            isAttack = true;
+            canStop = true;
         }
     }
     public void OpenClick()
     {
-       EmptyForEquip.GetComponent<ChestScript>().Open();
+        EmptyForEquip.GetComponent<ChestScript>().Open();
     }
     IEnumerator MeleeAttack()
     {
+
         yield return new WaitForSeconds(0);
-        atackTime = atackTime + Time.deltaTime;
+        atackTime = atackTime + Time.deltaTime*1.3f;
         if (atackTime >= 0)
         {
             MovementSpeed = newMS - newMS / 10;
@@ -281,14 +289,14 @@ public class PlayerScript : MonoBehaviour
             transform.GetChild(0).GetChild(0).gameObject.active = true;
             AdditionalDamage = 1;
         }
-         if (atackTime >= 1)
+        if (atackTime >= 1)
         {
             MovementSpeed = newMS - newMS / 3;
             transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = true;
             transform.GetChild(0).GetChild(1).gameObject.active = true;
             AdditionalDamage = 2;
         }
-         if(atackTime >= 1.5f)
+        if (atackTime >= 1.5f)
         {
             MovementSpeed = newMS - newMS / 2;
             transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
@@ -296,15 +304,15 @@ public class PlayerScript : MonoBehaviour
             AdditionalDamage = 3;
         }
         lastRoutine = StartCoroutine(MeleeAttack());
-        
+
     }
     IEnumerator RangeAttack()
     {
         yield return new WaitForSeconds(0);
         var scale = transform.GetChild(0).GetChild(3).transform.localScale;
         if (scale.y < 4.5f)
-            scale.y += Time.deltaTime*0.9f;
-            transform.GetChild(0).GetChild(3).transform.localScale = scale;
+            scale.y += Time.deltaTime * 1.3f;
+        transform.GetChild(0).GetChild(3).transform.localScale = scale;
         if (atackTime >= 0)
         {
             MovementSpeed = newMS - newMS / 10;
@@ -313,7 +321,6 @@ public class PlayerScript : MonoBehaviour
             AdditionalDamage = 1;
         }
         atackTime = atackTime + Time.deltaTime;
-        Debug.Log(atackTime);
         if (atackTime >= 1)
         {
             MovementSpeed = newMS - newMS / 3;
@@ -329,38 +336,47 @@ public class PlayerScript : MonoBehaviour
             AdditionalDamage = 3;
         }
         lastRoutine = StartCoroutine(RangeAttack());
-        
+
     }
     public void StopAtack()
     {
-        MovementSpeed = newMS;
-        if (lastWeap == 0 && !isWall)
+        if (!isLastAttack && canStop)
         {
-            Debug.Log("MeleeAtack");
-            var anim = transform.GetChild(0).GetComponent<Animation>();
-            anim.Play("Sword Attack");
+            MovementSpeed = newMS;
+            if (lastWeap == 0 && !isWall)
+            {
+                var anim = transform.GetChild(0).GetComponent<Animation>();
+                anim.Play("Sword Attack");
+            }
+            else if (lastWeap == 1)
+            {
+                transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                var _arrow = Instantiate(Arrow, transform.position, transform.rotation);
+                _arrow.GetComponent<Arrowscript>().startPos = transform.position;
+                _arrow.GetComponent<Arrowscript>().distance = transform.GetChild(0).GetChild(3).transform.localScale.y * 2.1f;
+                _arrow.GetComponent<Arrowscript>().Damage = AdditionalDamage;
+            }
+            else if (lastWeap == 0 && isWall)
+            {
+                transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                transform.GetChild(0).GetChild(0).gameObject.active = false;
+                transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
+                transform.GetChild(0).GetChild(1).gameObject.active = false;
+                transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
+                transform.GetChild(0).GetChild(2).gameObject.active = false;
+            }
+            StopCoroutine(lastRoutine);
+            StartCoroutine(NextAttack());
+            atackTime = 0;
+            isAttack = false;
+            isLastAttack = true;
+            canStop = false;
         }
-        else if(lastWeap == 1)
-        {
-            Debug.Log("RangeAtack");
-            transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-            var _arrow = Instantiate(Arrow, transform.position, transform.rotation);
-            _arrow.GetComponent<Arrowscript>().startPos = transform.position;
-            _arrow.GetComponent<Arrowscript>().distance = transform.GetChild(0).GetChild(3).transform.localScale.y*2.1f;
-            _arrow.GetComponent<Arrowscript>().Damage = AdditionalDamage;
-        }
-        else if (lastWeap == 0 && isWall)
-        {
-            transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-            transform.GetChild(0).GetChild(0).gameObject.active = false;
-            transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
-            transform.GetChild(0).GetChild(1).gameObject.active = false;
-            transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
-            transform.GetChild(0).GetChild(2).gameObject.active = false;
-        }
-        isAttack = false;
-        StopCoroutine(lastRoutine);
-        atackTime = 0;
+    }
+    IEnumerator NextAttack()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isLastAttack = false;
     }
 }
 
