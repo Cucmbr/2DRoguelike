@@ -19,7 +19,6 @@ public class PlayerScript : MonoBehaviour
     private float fill = 1;
 
     Text HpText;
-    Text DmgText;
 
     static public WeaponClass[] EquipedWeapon = new WeaponClass[2];
     public GameObject Arrow;
@@ -71,7 +70,6 @@ public class PlayerScript : MonoBehaviour
         CurrentWeapon = EquipedWeapon[0];
 
         HpText = GameObject.Find("HpText").GetComponent<Text>();
-        DmgText = GameObject.Find("DmgText").GetComponent<Text>();
 
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = CurrentWeapon.WeaponSprite[0];
         DrowingButton = GameObject.Find("ChangeWeapon");
@@ -93,8 +91,6 @@ public class PlayerScript : MonoBehaviour
         HpBar[1].fillAmount = fill;
         HpText.text = CurrentHealth.ToString() + "/" + MaxHealth.ToString();
 
-        //Отрисовка урона текущего оружия
-        DmgText.text = CurrentWeapon.Weapondamage.ToString();
 
     }
 

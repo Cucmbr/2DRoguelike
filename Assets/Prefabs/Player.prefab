@@ -413,6 +413,7 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: d2363382c0643944889b6784a95928ef, type: 2}
   m_Animations:
+  - {fileID: 7400000, guid: 8823ae4f4dac0504fa2d137e95eba948, type: 2}
   - {fileID: 7400000, guid: d2363382c0643944889b6784a95928ef, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -695,6 +696,8 @@ MonoBehaviour:
   - {fileID: 3172655124380394823, guid: bcce3a673ed80fa4684646baaf85aab0, type: 3}
   - {fileID: 8621909990173112332, guid: 68a19b2113e30aa4695a3120512c3e0b, type: 3}
   - {fileID: 8621909990173112332, guid: f88bb7f40dab0464a9b2f7e5a37b9656, type: 3}
+  CurrentRange: 0
+  CurrentWeapon: {fileID: 0}
   WeaponPos:
   - {x: 0.5, y: 0.59, z: 0}
   - {x: 0, y: 0.3, z: 0}
@@ -707,7 +710,12 @@ MonoBehaviour:
   HpBar:
   - {fileID: 0}
   - {fileID: 0}
+  CurrentButton: {fileID: 0}
+  DrowingButton: {fileID: 0}
   isWall: 0
+  isAttack: 0
+  isLastAttack: 0
+  canStop: 0
 --- !u!114 &7111773303581417682
 MonoBehaviour:
   m_ObjectHideFlags: 0
