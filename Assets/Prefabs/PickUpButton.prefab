@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 593390e54337f4249852e89cff34abff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5cddd031e613e04b94ac4135b8fa15d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -121,8 +121,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponScript, Assembly-CSharp
-        m_MethodName: Equip
+        m_TargetAssemblyTypeName: PlayerScript, Assembly-CSharp
+        m_MethodName: EquipClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

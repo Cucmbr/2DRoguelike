@@ -5,7 +5,7 @@ public class WallChecker : MonoBehaviour
     GameObject Player;
     private void Awake()
     {
-        Player = transform.parent.gameObject;
+        Player = transform.parent.transform.parent.gameObject;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
