@@ -8,7 +8,7 @@ public class ChestScript : MonoBehaviour
     public void Open()
     {
         //Открытие сундука с дропом вещи
-        var _item = isWeapon == false?Instantiate(Weapons[Random.RandomRange(0, Artifacts.Length)]): Instantiate(Weapons[Random.RandomRange(0, Weapons.Length)].GetComponent<WeaponClass>().Object);
+        var _item = isWeapon == false?Instantiate(Artifacts[Random.Range(0, Artifacts.Length)]): Instantiate(Weapons[Random.Range(0, Weapons.Length)].GetComponent<WeaponClass>().Object);
         _item.transform.position = transform.position;
         _item.transform.localScale = new Vector3(1, 1, 1);
         _item.gameObject.GetComponent<SpriteRenderer>().enabled = true;

@@ -9,6 +9,13 @@ public class RoomsPlacer : MonoBehaviour
     public Room[] RoomPrefabs;
     public Room StartingRoom;
 
+    public int chestRooms;
+    public int shops;
+    public int ladders;
+    bool fixC = false;
+    bool fixS = false;
+    bool fixL = false;
+
     private Room[,] spawnedRooms;
 
     private IEnumerator Start()
@@ -16,11 +23,24 @@ public class RoomsPlacer : MonoBehaviour
         spawnedRooms = new Room[5, 5];
         spawnedRooms[2, 2] = StartingRoom;
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i < 8; i++)
         {
-            // Ёто вот просто убрать чтобы подземелье генерировалось мгновенно на старте
-            yield return new WaitForSecondsRealtime(0.2f);
-
+            yield return new WaitForSecondsRealtime(0.1f);
+            PlaceOneRoom();
+        }
+        if (chestRooms != 0)
+        {
+            fixC = true;
+            PlaceOneRoom();
+        }
+        if (shops != 0)
+        {
+            fixS = true;
+            PlaceOneRoom();
+        }
+        if (ladders != 0)
+        {
+            fixL = true;
             PlaceOneRoom();
         }
     }
@@ -44,20 +64,40 @@ public class RoomsPlacer : MonoBehaviour
             }
         }
 
-        // Ёту строчку можно заменить на выбор комнаты с учЄтом еЄ веро€тности, вроде как в ChunksPlacer.GetRandomChunk()
-        Room newRoom = Instantiate(RoomPrefabs[Random.Range(0, RoomPrefabs.Length)]);
-
-        int limit = 2500;
-        while (limit-- > 0)
+        int rd = Random.Range(0, 4);
+        int rb;
+        if ((rd == 0 && chestRooms != 0) || fixC == true)
         {
-            // Ёту строчку можно заменить на выбор положени€ комнаты с учЄтом того насколько он далеко/близко от центра,
-            // или сколько у него соседей, чтобы генерировать более плотные, или наоборот, раст€нутые данжи
-            Vector2Int position = vacantPlaces.ElementAt(Random.Range(0, vacantPlaces.Count));
-//            newRoom.RotateRandomly();
+            rb = RoomPrefabs.Length - 3;
+            chestRooms -= 1;
+            fixC = false;
+        }
+        else if ((rd == 1 && shops != 0) || fixS == true)
+        {
+            rb = RoomPrefabs.Length - 2;
+            shops -= 1;
+            fixS = false;
+        }
+        else if ((rd == 2 && ladders != 0) || fixL == true)
+        {
+            rb = RoomPrefabs.Length - 1;
+            ladders -= 1;
+            fixL = false;
+        }
+        else
+        {
+            rb = Random.Range(0, RoomPrefabs.Length - 3);
+        }
 
+        Room newRoom = Instantiate(RoomPrefabs[rb]);
+
+        int limit = 500;
+        while (limit-- > 0)
+        {           
+            Vector2Int position = vacantPlaces.ElementAt(Random.Range(0, vacantPlaces.Count));
             if (ConnectToSomething(newRoom, position))
             {
-                newRoom.transform.position = new Vector3(position.x - 2, position.y - 2) * 25;
+                newRoom.transform.position = new Vector3(position.x - 2, position.y - 2) * 20;
                 spawnedRooms[position.x, position.y] = newRoom;
                 return;
             }

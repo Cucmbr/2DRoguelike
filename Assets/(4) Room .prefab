@@ -52,7 +52,6 @@ MonoBehaviour:
   DoorR: {fileID: 7175712509169744135}
   DoorD: {fileID: 8718465320783972930}
   DoorL: {fileID: 8254625722880639929}
-  Darkness: {fileID: 0}
   BlockMeshes: []
 --- !u!114 &7022961488431123753
 MonoBehaviour:
@@ -76,7 +75,8 @@ MonoBehaviour:
   - {fileID: 5388707921904952010}
   - {fileID: 2625874735672140505}
   enemyTypes:
-  - {fileID: 2278874626053870091, guid: 09cb614f93150d64aa7b2bc8ae7ac8b4, type: 3}
+  - {fileID: 8610818808838831760, guid: 87b5479392715d444a420269f816a5e8, type: 3}
+  - {fileID: 4643931905282950384, guid: d40bbd7a2a68109459c9374ed43d6577, type: 3}
   enemySpawnPoints:
   - {fileID: 3686431367646664573}
   - {fileID: 2235651025848908040}
@@ -116,7 +116,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 215, y: 215}
+  m_Size: {x: 215, y: 205}
   m_EdgeRadius: 0
 --- !u!66 &4144107339583109555
 CompositeCollider2D:
@@ -620,6 +620,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 1614196106853483010, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -99
+      objectReference: {fileID: 0}
     - target: {fileID: 1678727475103917605, guid: 3006f602cd71a824abdd08296e711579, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 3
@@ -708,9 +712,21 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[26].m_ColliderPaths.Array.data[0].Array.data[3].Y
       value: -50880000
       objectReference: {fileID: 0}
+    - target: {fileID: 2247428025218208900, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 2655868909150448557, guid: 3006f602cd71a824abdd08296e711579, type: 3}
       propertyPath: m_BodyType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3150577790487349256, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839576153738132323, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -99
       objectReference: {fileID: 0}
     - target: {fileID: 6780934824329989393, guid: 3006f602cd71a824abdd08296e711579, type: 3}
       propertyPath: m_ColliderPaths.Array.size
@@ -1768,6 +1784,14 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[26].m_ColliderPaths.Array.data[0].Array.data[3].Y
       value: -50080000
       objectReference: {fileID: 0}
+    - target: {fileID: 7055875412955489173, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -99
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165166541395417158, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 7464250231620420120, guid: 3006f602cd71a824abdd08296e711579, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1855,6 +1879,10 @@ PrefabInstance:
     - target: {fileID: 7464250231620420121, guid: 3006f602cd71a824abdd08296e711579, type: 3}
       propertyPath: m_Name
       value: (4) Walls
+      objectReference: {fileID: 0}
+    - target: {fileID: 8716562355057271204, guid: 3006f602cd71a824abdd08296e711579, type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2655868909150448557, guid: 3006f602cd71a824abdd08296e711579, type: 3}

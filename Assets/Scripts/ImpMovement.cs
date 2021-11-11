@@ -4,8 +4,6 @@ public class ImpMovement : MonoBehaviour
 {
     public Vector2 _direction;
     public float _moveSpeed = 0.1f;
-    public bool flipRot = true;
-    public Transform rotationTarget;
     public Transform player;
 
     private void Start()
@@ -21,11 +19,7 @@ public class ImpMovement : MonoBehaviour
         float y = targetPos.y / (Mathf.Abs(targetPos.x) + Mathf.Abs(targetPos.y));
 
         _direction = new Vector2(x, y);
-
-        //Высчитывание угла для поворота спрайта по направлению движения самого объекта
-        float angle = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
-        angle = flipRot ? -angle : angle;
-        rotationTarget.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180));
+        Rotate(_direction.x);
     }
 
     private void FixedUpdate()
@@ -33,14 +27,14 @@ public class ImpMovement : MonoBehaviour
         //Движение
         transform.Translate(_direction * _moveSpeed);
 
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            //Если направление почти по прямой то задаются случайные значения направления
+            //Если направление близко к прямой, то задаются случайные значения направления
             if (Mathf.Abs(_direction.x) > 0.9f || Mathf.Abs(_direction.y) > 0.9f)
             {
                 if (Mathf.Abs(_direction.x) > 0.9f)
@@ -51,6 +45,7 @@ public class ImpMovement : MonoBehaviour
                         sign = -1;
                     float y = sign * (1 - Mathf.Abs(x));
                     _direction = new Vector2(x, y);
+                    Rotate(_direction.x);
                 }
                 if (Mathf.Abs(_direction.y) > 0.9f)
                 {
@@ -60,12 +55,9 @@ public class ImpMovement : MonoBehaviour
                         sign = -1;
                     float x = sign * (1 - Mathf.Abs(y));
                     _direction = new Vector2(x, y);
+                    Rotate(_direction.x);
                 }
 
-                //Высчитывание угла для поворота спрайта по направлению движения самого объекта
-                float angle = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
-                angle = flipRot ? -angle : angle;
-                rotationTarget.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180));
             }
             //Отскок от стены под тем же углом
             else
@@ -73,11 +65,23 @@ public class ImpMovement : MonoBehaviour
                 Vector2 inDirection = _direction;
                 Vector2 inNormal = collision.contacts[0].normal;
                 _direction = Vector2.Reflect(inDirection, inNormal);
-                //Высчитывание угла для поворота спрайта по направлению движения самого объекта
-                float angle = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
-                angle = flipRot ? -angle : angle;
-                rotationTarget.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 180));
+                Rotate(_direction.x);
             }
+        }
+    }
+
+    void Rotate(float x)
+    {
+        Vector3 scaler = transform.localScale;
+        if (x > 0)
+        {
+            scaler.x = Mathf.Abs(scaler.x);
+            transform.localScale = scaler;
+        }
+        else
+        {
+            scaler.x = -Mathf.Abs(scaler.x);
+            transform.localScale = scaler;
         }
     }
 }

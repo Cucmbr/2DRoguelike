@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3075023093546830616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5399256, y: -3.9222045, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,13 +72,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 799c87fd2789ca546b7c928679b8a1d1, type: 3}
+  m_SortingOrder: -20
+  m_Sprite: {fileID: 21300000, guid: 84dd33baf1c1848449efc1a3c368456e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.9, y: 1.9}
+  m_Size: {x: 3.09, y: 2.22}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -96,12 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53af0ad15fd4f9e47b90074c85d852c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons:
-  - {fileID: 400384055248469748, guid: fcd21dfa9b801414f977c6893c45ca93, type: 3}
-  - {fileID: 5014292700720889988, guid: 3cec0296364d7f3468c2f90451f075ea, type: 3}
-  - {fileID: 6104590483570735706, guid: b37269e2a2cdb9e4f874b7eac5f3969a, type: 3}
-  - {fileID: 5366502048710841044, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
-  Artifacts: []
+  Weapons: []
+  Artifacts:
+  - {fileID: 3699638947207257153, guid: f98e9f9e06dbd934ba45c62ed36410c7, type: 3}
+  - {fileID: 3699638947207257153, guid: be1eb427ee57f1c409faa58662ab4239, type: 3}
+  - {fileID: 3699638947207257153, guid: 021ee6e811dfbc241a727ebe4d0b3ea3, type: 3}
+  - {fileID: 3699638947207257153, guid: 92a975c7cbff35c4a9142d14f0df3c07, type: 3}
+  - {fileID: 3699638947207257153, guid: 17cc9d34943fbe64e8635c849b46d805, type: 3}
+  - {fileID: 3699638947207257153, guid: 7a76a703738961b4296fc7302af9c657, type: 3}
   isWeapon: 0
 --- !u!58 &3075023093546830617
 CircleCollider2D:
@@ -118,4 +120,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.4
+  m_Radius: 1.7

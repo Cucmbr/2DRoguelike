@@ -41,7 +41,7 @@ public class BSRoom : MonoBehaviour
                             if (_enemy.CompareTag("Imp"))
                                 _enemy.GetComponent<ImpMovement>().player = GameObject.FindWithTag("Player").transform;
                             else if (_enemy.CompareTag("Enemy"))
-                                _enemy.GetComponent<Pathfinding.AIDestinationSetter>().target = GameObject.FindWithTag("Player").transform;
+                                _enemy.transform.GetChild(0).GetComponent<Pathfinding.AIDestinationSetter>().target = GameObject.FindWithTag("Player").transform;
                             enemySpawnPoints[i].gameObject.SetActive(false);
                         }
                     }
@@ -52,6 +52,10 @@ public class BSRoom : MonoBehaviour
             {
                 enemySpawnPoints[i].gameObject.SetActive(false);
             }
+        }
+        if (collision.CompareTag("Player"))
+        {
+            GameObject.Find("Darkness").transform.position = transform.position;
         }
     }
     IEnumerator CheckEnemies()
@@ -64,8 +68,10 @@ public class BSRoom : MonoBehaviour
     {
         foreach (GameObject wall in walls)
         {
-                wall.gameObject.SetActive(false);
+            wall.gameObject.SetActive(false);
         }
+        var anim = GameObject.Find("Player").transform.GetChild(1).GetComponent<Animation>();
+        anim.Play("AutoLutingAnim");
         wallsDestroyed = true;
     }
     void SpawnMonsters()
@@ -83,6 +89,5 @@ public class BSRoom : MonoBehaviour
                 }
             }
         }
-        //ок
     }
 }

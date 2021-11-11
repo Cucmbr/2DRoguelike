@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2776584764926528210}
   - component: {fileID: 419313172446744110}
   - component: {fileID: 6555329741375169410}
+  - component: {fileID: 1380600806817469279}
   m_Layer: 0
   m_Name: '(Shop) Room '
   m_TagString: Room
@@ -49,7 +50,6 @@ MonoBehaviour:
   DoorR: {fileID: 0}
   DoorD: {fileID: 0}
   DoorL: {fileID: 0}
-  Darkness: {fileID: 0}
   BlockMeshes: []
 --- !u!61 &6555329741375169410
 BoxCollider2D:
@@ -77,6 +77,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 215, y: 205}
   m_EdgeRadius: 0
+--- !u!114 &1380600806817469279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776584764926528211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e7fb476d1269c4cbf7bda87ba5d589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check: 0
+  wallsDestroyed: 0
+  maxLimit: 0
+  minLimit: 0
+  walls: []
+  enemyTypes: []
+  enemySpawnPoints: []
 --- !u!1001 &2499883953088728028
 PrefabInstance:
   m_ObjectHideFlags: 0

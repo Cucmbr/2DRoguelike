@@ -99,7 +99,6 @@ MonoBehaviour:
   DoorR: {fileID: 8080694506559475939}
   DoorD: {fileID: 7732419225417556902}
   DoorL: {fileID: 7007449326785161821}
-  Darkness: {fileID: 0}
   BlockMeshes: []
 --- !u!114 &3740732810738221828
 MonoBehaviour:
@@ -123,7 +122,7 @@ MonoBehaviour:
   - {fileID: 6447374664006388526}
   - {fileID: 4017738074093456189}
   enemyTypes:
-  - {fileID: 2278874626053870091, guid: 09cb614f93150d64aa7b2bc8ae7ac8b4, type: 3}
+  - {fileID: 8610818808838831760, guid: 87b5479392715d444a420269f816a5e8, type: 3}
   enemySpawnPoints:
   - {fileID: 7041245129628391760}
   - {fileID: 5591766687174817573}
@@ -161,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 215, y: 215}
+  m_Size: {x: 215, y: 205}
   m_EdgeRadius: 0
 --- !u!1001 &279749425290224003
 PrefabInstance:
@@ -170,6 +169,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6166456891212588130}
     m_Modifications:
+    - target: {fileID: 1929091987228380921, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3590082629284125287, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -99
+      objectReference: {fileID: 0}
     - target: {fileID: 5506563150866419687, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
       value: 3.0015414
@@ -1097,6 +1104,14 @@ PrefabInstance:
     - target: {fileID: 5506563150866419687, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
       propertyPath: m_ColliderPaths.Array.data[23].m_ColliderPaths.Array.data[0].Array.data[3].Y
       value: -108287992
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519242991350239743, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679870558508288427, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8496003592136229102, guid: 86cf2f42ebbd8d443bc75ec708a9d4b7, type: 3}
       propertyPath: m_Pivot.x

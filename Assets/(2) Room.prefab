@@ -52,7 +52,6 @@ MonoBehaviour:
   DoorR: {fileID: 3535865180211530400}
   DoorD: {fileID: 3060930573719173605}
   DoorL: {fileID: 2308930969523433502}
-  Darkness: {fileID: 0}
   BlockMeshes: []
 --- !u!114 &5857469937933158636
 MonoBehaviour:
@@ -76,8 +75,8 @@ MonoBehaviour:
   - {fileID: 1750813293518754157}
   - {fileID: 8571565116651524478}
   enemyTypes:
-  - {fileID: 8084516018851137137, guid: 6b6d54b79d6b7da49935b14acd994b54, type: 3}
-  - {fileID: 2278874626053870091, guid: 09cb614f93150d64aa7b2bc8ae7ac8b4, type: 3}
+  - {fileID: 8610818808838831760, guid: 87b5479392715d444a420269f816a5e8, type: 3}
+  - {fileID: 4643931905282950384, guid: d40bbd7a2a68109459c9374ed43d6577, type: 3}
   enemySpawnPoints:
   - {fileID: 222838367300702904}
   - {fileID: 3402992195417980109}
@@ -120,7 +119,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 215, y: 215}
+  m_Size: {x: 215, y: 205}
   m_EdgeRadius: 0
 --- !u!66 &5147726293267936168
 CompositeCollider2D:
