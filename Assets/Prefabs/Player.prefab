@@ -390,7 +390,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -13
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: d12a6e7ebcc51fa47877c07928e9689b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -413,7 +413,6 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: d2363382c0643944889b6784a95928ef, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 8823ae4f4dac0504fa2d137e95eba948, type: 2}
   - {fileID: 7400000, guid: d2363382c0643944889b6784a95928ef, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -762,7 +761,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -12
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 9950044c9df83bb4286c5228ad2889f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
