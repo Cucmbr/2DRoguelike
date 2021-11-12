@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class ArtifactClass : MonoBehaviour
 {
-    public float MaxHealth;
-    public float CurrentHealth;
+    public float maxHealth;
+    public float currentHealth;
     public int coins;
 
-    public float MovementSpeed;
-    public float AtackSpeed;
+    public float movementSpeed;
+    public float atackSpeed;
 
-    public float Damage;
-    public float CriticalChanse;
-    public float CriticalMultiply;
+    public float damage;
+    public float criticalChanse;
+    public float criticalMultiply;
 }

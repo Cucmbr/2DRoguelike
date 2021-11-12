@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FireballBehaviour : MonoBehaviour
 {
-    public float projectileSpeed = 0.06f;
-    public Vector2 _direction;
-    public GameObject _impPrefab;
+    [SerializeField] private float projectileSpeed = 0.06f;
+    public Vector2 direction;
+    [SerializeField] private GameObject impPrefab;
 
     private void Start()
     {
@@ -15,7 +15,7 @@ public class FireballBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(_direction * projectileSpeed);
+        transform.Translate(direction * projectileSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -23,15 +23,17 @@ public class FireballBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             //отскок от стены под тем же углом
-            Vector2 inDirection = _direction;
+            Vector2 inDirection = direction;
             Vector2 inNormal = collision.contacts[0].normal;
-            _direction = Vector2.Reflect(inDirection, inNormal);
+            direction = Vector2.Reflect(inDirection, inNormal);
         }
-        if (collision.gameObject.CompareTag("Player")) //Если Fireball наткнулся на Player...
+
+        if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerScript>().CurrentHealth -= _impPrefab.GetComponent<EnemyClass>().Damage;//...то нанести урон, равный показателю урона Imp
+            collision.gameObject.GetComponent<PlayerScript>().currentHealth -= impPrefab.GetComponent<EnemyClass>().damage; //нанести урон, равный показателю урона Imp
             Destroy(gameObject);
-            if (collision.gameObject.GetComponent<PlayerScript>().CurrentHealth <= 0)
+
+            if (collision.gameObject.GetComponent<PlayerScript>().currentHealth <= 0)
             {
                 SceneManager.LoadScene(0);
             }

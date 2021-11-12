@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Arrowscript : MonoBehaviour
 {
-    public float moveSpeed;
+    [SerializeField] private float moveSpeed;
     public float distance;
     public Vector3 startPos;
-    public float Damage;
+    public float damage;
     void FixedUpdate()
     {
         //Летит заданную дистанцию

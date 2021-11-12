@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class ChestScript : MonoBehaviour
 {
-    public GameObject[] Weapons;
-    public GameObject[] Artifacts;
-    public bool isWeapon;
+    [SerializeField] private GameObject[] weapons;
+    [SerializeField] private GameObject[] artifacts;
+    [SerializeField] private bool isWeapon;
     public void Open()
     {
         //Открытие сундука с дропом вещи
-        var _item = isWeapon == false?Instantiate(Artifacts[Random.Range(0, Artifacts.Length)]): Instantiate(Weapons[Random.Range(0, Weapons.Length)].GetComponent<WeaponClass>().Object);
-        _item.transform.position = transform.position;
-        _item.transform.localScale = new Vector3(1, 1, 1);
-        _item.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        _item.gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        var item = isWeapon == false?
+            Instantiate(artifacts[Random.Range(0, artifacts.Length)]):
+            Instantiate(weapons[Random.Range(0, weapons.Length)].GetComponent<WeaponClass>().selfPrefabObject);
+        item.transform.position = transform.position;
+        item.transform.localScale = new Vector3(1, 1, 1);
+        item.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        item.gameObject.GetComponent<CircleCollider2D>().enabled = true;
         Destroy(gameObject);
     }
 }

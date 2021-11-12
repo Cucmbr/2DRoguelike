@@ -6,18 +6,22 @@ public class SlimeBehaviour : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) //Если Dog наткнулся на Player...
+        if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerScript>().CurrentHealth -= transform.parent.transform.GetChild(0).GetComponent<EnemyClass>().Damage;//...то нанести урон, равный показателю урона Slime
+            collision.gameObject.GetComponent<PlayerScript>().currentHealth -=
+                transform.parent.transform.GetChild(0).GetComponent<EnemyClass>().damage;// то нанести урон, равный показателю урона Slime
+
             transform.parent.transform.GetChild(0).GetComponent<Pathfinding.AIPath>().canMove = false;
-            GetComponent<CircleCollider2D>().enabled = false; 
+            GetComponent<CircleCollider2D>().enabled = false;
+            
             StartCoroutine(AttackCooldown());
-            if (collision.gameObject.GetComponent<PlayerScript>().CurrentHealth <= 0)
+            if (collision.gameObject.GetComponent<PlayerScript>().currentHealth <= 0)
             {
                 SceneManager.LoadScene(0);
             }
         }
     }
+
     private void FixedUpdate()
     {
         transform.position = transform.parent.transform.GetChild(0).transform.position;

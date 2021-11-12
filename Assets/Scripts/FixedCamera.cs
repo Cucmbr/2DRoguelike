@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class FixedCamera : MonoBehaviour
 {
-    public Transform player;
+    [SerializeField] private Transform player;
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;

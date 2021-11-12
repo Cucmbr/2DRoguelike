@@ -1,27 +1,31 @@
 using UnityEngine;
-
 using TMPro;
-using System.Collections;
+
 public class EnemyClass : MonoBehaviour
 {
     //Хар-ки всех существующих противников
-    public float MaxHP;
-    public float CurentHP;
-    public float Damage;
-    bool death = false;
+    [SerializeField] private float maxHP;
+    public float curentHP;
+    public float damage;
 
-    public GameObject DoneDamageText;
-    public GameObject HPPickUp;
+    [SerializeField] private GameObject doneDamageText;
+    [SerializeField] private GameObject HPPickUp;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EquipedWeapon"))
         {
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage;
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage;
-            Debug.Log(PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage);
-            var text = Instantiate(DoneDamageText, transform.position, transform.rotation);
-            text.transform.GetChild(0).GetComponent<TextMeshPro>().SetText((PlayerScript.Damage + PlayerScript.EquipedWeapon[0].GetComponent<WeaponClass>().Weapondamage + PlayerScript.AdditionalDamage).ToString());
+            var player = collision.transform.parent.GetComponent<PlayerScript>();
+
+            curentHP -= player.damage + player.equipedWeapon[0].GetComponent<WeaponClass>().weaponDamage;
+            curentHP -= player.damage + player.equipedWeapon[0].
+                GetComponent<WeaponClass>().weaponDamage + player.additionalDamage;
+
+            var text = Instantiate(doneDamageText, transform.position, transform.rotation);
+            text.transform.GetChild(0).GetComponent<TextMeshPro>().
+                SetText((player.damage + player.equipedWeapon[0].
+                GetComponent<WeaponClass>().weaponDamage + player.additionalDamage).ToString());
+            
             var anim = text.transform.GetChild(0).GetComponent<Animation>();
             switch (Random.Range(0, 2))
             {
@@ -31,17 +35,23 @@ public class EnemyClass : MonoBehaviour
                 case 1:
                     anim.Play("DamageFly 1");
                     break;
-
-            }        
-            
-            
+            }            
         }
+
         if (collision.CompareTag("Arrow"))
         {
-            CurentHP -= PlayerScript.Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage;
-            CurentHP -= PlayerScript.Damage+collision.GetComponent<Arrowscript>().Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage;
-            var text = Instantiate(DoneDamageText, transform.position, transform.rotation);
-            text.transform.transform.GetChild(0).GetComponent<TextMeshPro>().SetText((PlayerScript.Damage + collision.GetComponent<Arrowscript>().Damage + PlayerScript.EquipedWeapon[1].GetComponent<WeaponClass>().Weapondamage).ToString());
+            var player = GameObject.FindWithTag("Player").transform.GetComponent<PlayerScript>();
+
+            curentHP -= player.damage + player.equipedWeapon[1].GetComponent<WeaponClass>().weaponDamage;
+            curentHP -= player.damage+collision.
+                GetComponent<Arrowscript>().damage + player.equipedWeapon[1].GetComponent<WeaponClass>().weaponDamage;
+            
+            var text = Instantiate(doneDamageText, transform.position, transform.rotation);
+            text.transform.transform.GetChild(0).GetComponent<TextMeshPro>().
+                SetText((player.damage + collision.
+                GetComponent<Arrowscript>().damage + player.equipedWeapon[1].
+                GetComponent<WeaponClass>().weaponDamage).ToString());
+            
             var anim = text.transform.GetChild(0).GetComponent<Animation>();
             switch (Random.Range(0, 2))
             {
@@ -53,18 +63,17 @@ public class EnemyClass : MonoBehaviour
                     break;
             }
             Destroy(collision.gameObject);
-
         }
-        if (CurentHP <= 0 && death == false)
+
+        if (curentHP <= 0)
         {
-            
-            death = true;
             BSRoom.enemies -= 1;
-            Debug.Log("gbplf" + BSRoom.enemies.ToString());
+            
             var pickUp = Instantiate(HPPickUp);
             pickUp.transform.position = transform.position;
             pickUp.transform.localScale = new Vector3(1, 1, 1);
             Destroy(gameObject);
+            
             if (transform.parent != null)
                 Destroy(transform.parent.gameObject);
             else

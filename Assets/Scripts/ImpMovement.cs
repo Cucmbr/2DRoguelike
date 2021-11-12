@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ImpMovement : MonoBehaviour
 {
-    public Vector2 _direction;
-    public float _moveSpeed = 0.1f;
+    private Vector2 direction;
+    private float _moveSpeed = 0.1f;
     public Transform player;
 
     private void Start()
@@ -18,16 +18,14 @@ public class ImpMovement : MonoBehaviour
         float x = targetPos.x / (Mathf.Abs(targetPos.x) + Mathf.Abs(targetPos.y));
         float y = targetPos.y / (Mathf.Abs(targetPos.x) + Mathf.Abs(targetPos.y));
 
-        _direction = new Vector2(x, y);
-        Rotate(_direction.x);
+        direction = new Vector2(x, y);
+        Rotate(direction.x);
     }
 
     private void FixedUpdate()
     {
         //ƒвижение
-        transform.Translate(_direction * _moveSpeed);
-
-
+        transform.Translate(direction * _moveSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -35,37 +33,37 @@ public class ImpMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             //≈сли направление близко к пр€мой, то задаютс€ случайные значени€ направлени€
-            if (Mathf.Abs(_direction.x) > 0.9f || Mathf.Abs(_direction.y) > 0.9f)
+            if (Mathf.Abs(direction.x) > 0.9f || Mathf.Abs(direction.y) > 0.9f)
             {
-                if (Mathf.Abs(_direction.x) > 0.9f)
+                if (Mathf.Abs(direction.x) > 0.9f)
                 {
-                    float x = _direction.x < 0 ? Random.Range(0, 1f) : Random.Range(-1f, 0);
+                    float x = direction.x < 0 ? Random.Range(0, 1f) : Random.Range(-1f, 0);
                     int sign = Random.Range(0, 2);
                     if (sign == 0)
                         sign = -1;
                     float y = sign * (1 - Mathf.Abs(x));
-                    _direction = new Vector2(x, y);
-                    Rotate(_direction.x);
+                    direction = new Vector2(x, y);
+                    Rotate(direction.x);
                 }
-                if (Mathf.Abs(_direction.y) > 0.9f)
+                if (Mathf.Abs(direction.y) > 0.9f)
                 {
-                    float y = _direction.y < 0 ? Random.Range(0, 1f) : Random.Range(-1f, 0);
+                    float y = direction.y < 0 ? Random.Range(0, 1f) : Random.Range(-1f, 0);
                     int sign = Random.Range(0, 2);
                     if (sign == 0)
                         sign = -1;
                     float x = sign * (1 - Mathf.Abs(y));
-                    _direction = new Vector2(x, y);
-                    Rotate(_direction.x);
+                    direction = new Vector2(x, y);
+                    Rotate(direction.x);
                 }
 
             }
             //ќтскок от стены под тем же углом
             else
             {
-                Vector2 inDirection = _direction;
+                Vector2 inDirection = direction;
                 Vector2 inNormal = collision.contacts[0].normal;
-                _direction = Vector2.Reflect(inDirection, inNormal);
-                Rotate(_direction.x);
+                direction = Vector2.Reflect(inDirection, inNormal);
+                Rotate(direction.x);
             }
         }
     }

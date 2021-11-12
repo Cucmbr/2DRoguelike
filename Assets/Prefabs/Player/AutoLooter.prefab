@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6454655467001423213}
   - component: {fileID: 6454655467001423214}
   m_Layer: 8
-  m_Name: AutoLuter
+  m_Name: AutoLooter
   m_TagString: AutoLutingWawe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

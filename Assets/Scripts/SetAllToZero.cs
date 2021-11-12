@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
-public class ScriptObnul : MonoBehaviour
+
+public class SetAllToZero : MonoBehaviour
 {
     private void Awake()
     {
@@ -18,6 +18,5 @@ public class ScriptObnul : MonoBehaviour
             DontDestroyOnLoad(GameObject.Find("ServiceObjects"));
             GameObject.Find("ServiceObjects").name = "ServiceObjects(dd)";
         }
-        
     }
 }

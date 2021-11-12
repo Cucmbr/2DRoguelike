@@ -3,31 +3,31 @@ using System.Collections;
 
 public class ConsumableClass : MonoBehaviour
 {
-    public float MaxHealth;
-    public float CurrentHealth;
+    public float maxHealth;
+    public float currentHealth;
     public int coins;
 
-    public float MovementSpeed;
-    public float AtackSpeed;
+    public float movementSpeed;
+    public float atackSpeed;
 
-    public float Damage;
-    public float CriticalChanse;
-    public float CriticalMultiply;
+    public float damage;
+    public float criticalChanse;
+    public float criticalMultiply;
 
-    private bool isLooting = false;
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("AutoLutingWawe"))
         {
-            StartCoroutine(AutoLutting());
+            StartCoroutine(AutoLooting());
         }
     }
-    IEnumerator AutoLutting()
+    IEnumerator AutoLooting()
     {
         //летит к игроку
-        yield return new WaitForSeconds(0);
-        transform.position = Vector3.Slerp(transform.position, GameObject.Find("Player").transform.position, 0.05f);
-        StartCoroutine(AutoLutting());
-    }
 
+        yield return new WaitForSeconds(0);
+
+        transform.position = Vector3.Slerp(transform.position, GameObject.Find("Player").transform.position, 0.05f);
+        StartCoroutine(AutoLooting());
+    }
 }

@@ -443,35 +443,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d953c4693610e4a8019e18069a3f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHealth: 10
+  maxHealth: 10
+  currentHealth: 10
   coins: 0
-  AttackSpeed: 1
-  AttackDelay: 0.5
-  Arrow: {fileID: 3572815517336093386, guid: 73c708139d97f2a4998442141ee92df4, type: 3}
-  Buttons:
+  movementSpeed: 1
+  damage: 0
+  equipedWeapon:
+  - {fileID: 0}
+  - {fileID: 0}
+  arrow: {fileID: 3572815517336093386, guid: f386100b6c429f44c842d0cc27caede3, type: 3}
+  buttons:
   - {fileID: 3172655124380394823, guid: bcce3a673ed80fa4684646baaf85aab0, type: 3}
   - {fileID: 8621909990173112332, guid: 68a19b2113e30aa4695a3120512c3e0b, type: 3}
   - {fileID: 8621909990173112332, guid: f88bb7f40dab0464a9b2f7e5a37b9656, type: 3}
-  CurrentRange: 0
-  CurrentWeapon: {fileID: 0}
-  WeaponPos:
-  - {x: 0.61, y: 0.35, z: 1}
+  prefabButtons:
+  - {fileID: 3172655124380394823, guid: bcce3a673ed80fa4684646baaf85aab0, type: 3}
+  - {fileID: 8621909990173112332, guid: 68a19b2113e30aa4695a3120512c3e0b, type: 3}
+  - {fileID: 8621909990173112332, guid: f88bb7f40dab0464a9b2f7e5a37b9656, type: 3}
+  weaponPos:
+  - {x: 0.61, y: 0.34, z: 1}
   - {x: -0.156, y: -0.126, z: 1}
-  WeaponScale:
+  weaponScale:
   - {x: 1, y: 1, z: 1}
   - {x: 0.65, y: 1, z: 1}
-  StartWeapon:
-  - {fileID: 5366502048710841044, guid: db1adf099dd14d14d8b582a65ffdb8ca, type: 3}
-  - {fileID: 400384055248469748, guid: fcd21dfa9b801414f977c6893c45ca93, type: 3}
-  HpBar:
-  - {fileID: 0}
-  - {fileID: 0}
-  CurrentButton: {fileID: 0}
-  DrowingButton: {fileID: 0}
+  startWeapon:
+  - {fileID: 5366502048710841044, guid: 01eb773e4a61e214fb8d51f2d910de49, type: 3}
+  - {fileID: 5366502048710841044, guid: 4152cfab89222d04f97e924c0b666b2d, type: 3}
   isWall: 0
-  isAttack: 0
-  isLastAttack: 0
-  canStop: 0
+  additionalDamage: 0
 --- !u!114 &2263304336057913786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,9 +483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3441f08adae1afd499f033892399ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facingRight: 1
-  _moveSpeed: 0.11
-  animator: {fileID: 0}
 --- !u!1 &3623421909562707429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1160,14 @@ PrefabInstance:
     - target: {fileID: 251201411563507633, guid: 267ab0c5f12fa5146b46cf4bd5b01010, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048440427902015954, guid: 267ab0c5f12fa5146b46cf4bd5b01010, type: 3}
+      propertyPath: m_Name
+      value: AttackIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433909959108694405, guid: 267ab0c5f12fa5146b46cf4bd5b01010, type: 3}
+      propertyPath: m_Name
+      value: BowScaler
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267ab0c5f12fa5146b46cf4bd5b01010, type: 3}

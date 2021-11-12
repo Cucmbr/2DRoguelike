@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53af0ad15fd4f9e47b90074c85d852c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons: []
-  Artifacts:
+  weapons: []
+  artifacts:
   - {fileID: 3699638947207257153, guid: f98e9f9e06dbd934ba45c62ed36410c7, type: 3}
   - {fileID: 3699638947207257153, guid: be1eb427ee57f1c409faa58662ab4239, type: 3}
   - {fileID: 3699638947207257153, guid: 021ee6e811dfbc241a727ebe4d0b3ea3, type: 3}

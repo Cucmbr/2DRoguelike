@@ -156,8 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb617a9877f3a5438161c2c4113a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _direction: {x: 0, y: 0}
-  _moveSpeed: 0.1
   player: {fileID: 0}
 --- !u!114 &6261284483623448196
 MonoBehaviour:
@@ -184,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d7466797aa91f4688ae181921afec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 10
-  CurentHP: 10
-  Damage: 1
-  DoneDamageText: {fileID: 3293638444461169077, guid: 22ac0e4e54312ec43afe3ca736d303b7, type: 3}
+  maxHP: 10
+  curentHP: 10
+  damage: 1
+  doneDamageText: {fileID: 3293638444461169077, guid: 22ac0e4e54312ec43afe3ca736d303b7, type: 3}
   HPPickUp: {fileID: 5855150210600154292, guid: eb03b005432dc7544938e1a1cfde5fb2, type: 3}

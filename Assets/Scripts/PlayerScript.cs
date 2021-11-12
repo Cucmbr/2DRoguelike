@@ -2,99 +2,108 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+
 public class PlayerScript : MonoBehaviour
 {
-    static public float MaxHealth = 10;
-    public float CurrentHealth = 10;
+    public float maxHealth = 10;
+    public float currentHealth = 10;
     public int coins;
 
-    static public float MovementSpeed = 1f;
-    float newMS;
-    public float AttackSpeed = 1f;
-    public float AttackDelay = 0.5f;
-    static public float Damage;
-    static public float CriticalChanse;
-    static public float CriticalMultiply;
+    public float movementSpeed = 1f;
+    private float newMS;
+    private float attackSpeed = 1f;
+    private float attackDelay = 0.5f;
+    public float damage;
+    private float criticalChanse;
+    private float criticalMultiply;
 
     private float fill = 1;
 
-    Text HpText;
+    Text hpText;
 
-    static public WeaponClass[] EquipedWeapon = new WeaponClass[2];
-    public GameObject Arrow;
-    public GameObject[] Buttons;
-    static public GameObject[] _Buttons;
-    static public int ButtonCounter = 0;
-    public int CurrentRange = 0;
+    public WeaponClass[] equipedWeapon = new WeaponClass[2];
+    [SerializeField] private GameObject arrow;
+    public GameObject[] buttons;
+    [SerializeField] private GameObject[] prefabButtons;
+    private int currentRange = 0;
 
 
-    public WeaponClass CurrentWeapon;
-    public Vector3[] WeaponPos;
-    public Vector3[] WeaponScale;
-    public GameObject[] StartWeapon;
-    [SerializeField] Image[] HpBar;
+    private WeaponClass currentWeapon;
+    [SerializeField] private Vector3[] weaponPos;
+    [SerializeField] private Vector3[] weaponScale;
+    [SerializeField] private GameObject[] startWeapon;
+    private Image[] hpBar = new Image[2];
 
-    GameObject EmptyForEquip;
+    private GameObject objectForInteraction;
 
-    public GameObject CurrentButton;
-    public GameObject DrowingButton;
+    private GameObject currentButton;
+    private GameObject drowingButton;
 
     public bool isWall;
 
-    static public List<ArtifactClass> EquipedArtifacts = new List<ArtifactClass>(0);
+    private List<ArtifactClass> equipedArtifacts = new List<ArtifactClass>(0);
 
     private float atackTime = 0;
-    Coroutine lastRoutine = null;
-    public bool isAttack = false;
-    public bool isLastAttack = false;
-    public bool canStop = false;
-    int lastWeap;
-    static public float AdditionalDamage;
+    private Coroutine lastRoutine = null;
+    private bool isAttack = false;
+    private bool isLastAttack = false;
+    private bool canStop = false;
+    private int lastWeapon;
+    public float additionalDamage;
+
     private void Awake()
     {
         //Инициализация необходимых переменных игрок
-        _Buttons = GameObject.Find("Player").GetComponent<PlayerScript>().Buttons;
-        _Buttons[0].GetComponent<Button>().onClick = GameObject.Find("ZeroButton").GetComponent<Button>().onClick;
-        _Buttons[1].GetComponent<Button>().onClick = GameObject.Find("FirstButton").transform.GetComponent<Button>().onClick;
-        _Buttons[2].GetComponent<Button>().onClick = GameObject.Find("SecondButton").transform.GetComponent<Button>().onClick;
-        GameObject.Find("Player").GetComponent<PlayerScript>().CurrentButton = PlayerScript._Buttons[0];
-        EquipedWeapon[0] = StartWeapon[0].GetComponent<WeaponClass>();
-        EquipedWeapon[1] = StartWeapon[1].GetComponent<WeaponClass>();
+        prefabButtons = GetComponent<PlayerScript>().buttons;
+        prefabButtons[0].GetComponent<Button>().onClick = GameObject.Find("ZeroButton").GetComponent<Button>().onClick;
+        prefabButtons[1].GetComponent<Button>().onClick = GameObject.Find("FirstButton").transform.GetComponent<Button>().onClick;
+        prefabButtons[2].GetComponent<Button>().onClick = GameObject.Find("SecondButton").transform.GetComponent<Button>().onClick;
+        GetComponent<PlayerScript>().currentButton = prefabButtons[0];
+        equipedWeapon[0] = startWeapon[0].GetComponent<WeaponClass>();
+        equipedWeapon[1] = startWeapon[1].GetComponent<WeaponClass>();
 
-        EquipedWeapon[0].Weapondamage = StartWeapon[0].GetComponent<WeaponClass>().Weapondamage;
-        EquipedWeapon[0].WeaponSprite = StartWeapon[0].GetComponent<WeaponClass>().WeaponSprite;
+        hpBar[0] = GameObject.Find("HpBarBack").GetComponent<Image>();
+        hpBar[1] = GameObject.Find("HpBar").GetComponent<Image>();
 
-        EquipedWeapon[1].Weapondamage = StartWeapon[1].GetComponent<WeaponClass>().Weapondamage;
-        EquipedWeapon[1].WeaponSprite = StartWeapon[1].GetComponent<WeaponClass>().WeaponSprite;
+        equipedWeapon[0].weaponDamage = startWeapon[0].GetComponent<WeaponClass>().weaponDamage;
+        equipedWeapon[0].weaponSprite = startWeapon[0].GetComponent<WeaponClass>().weaponSprite;
 
-        CurrentWeapon = EquipedWeapon[0];
+        equipedWeapon[1].weaponDamage = startWeapon[1].GetComponent<WeaponClass>().weaponDamage;
+        equipedWeapon[1].weaponSprite = startWeapon[1].GetComponent<WeaponClass>().weaponSprite;
 
-        HpText = GameObject.Find("HpText").GetComponent<Text>();
+        currentWeapon = equipedWeapon[0];
+
+        hpText = GameObject.Find("HpText").GetComponent<Text>();
 
         StartCoroutine(StartWeapPos());
 
 
-        transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = CurrentWeapon.WeaponSprite[0];
-        DrowingButton = GameObject.Find("ChangeWeapon");
+        transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = currentWeapon.weaponSprite[0];
+        drowingButton = GameObject.Find("ChangeWeapon");
     }
 
+    IEnumerator StartWeapPos()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        var pos = new Vector3(0, 0, 0);
+        transform.GetChild(0).transform.localPosition = pos;
+    }
 
     private void FixedUpdate()
     {
         //Отрисовка текущей кнопки
-        DrowingButton.GetComponent<Image>().sprite = CurrentButton.GetComponent<Image>().sprite;
-        DrowingButton.GetComponent<Button>().onClick = CurrentButton.GetComponent<Button>().onClick;
+        drowingButton.GetComponent<Image>().sprite = currentButton.GetComponent<Image>().sprite;
+        drowingButton.GetComponent<Button>().onClick = currentButton.GetComponent<Button>().onClick;
 
         //Отрисовка текущего оружия
-        CurrentWeapon = EquipedWeapon[CurrentRange];
-        transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = CurrentWeapon.WeaponSprite[0];
+        currentWeapon = equipedWeapon[currentRange];
+        transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = currentWeapon.weaponSprite[0];
 
         //Отрисовка текущих очков здоровья
-        fill = CurrentHealth / MaxHealth;
-        HpBar[1].fillAmount = fill;
-        HpText.text = CurrentHealth.ToString() + "/" + MaxHealth.ToString();
-
-
+        fill = currentHealth / maxHealth;
+        hpBar[1].fillAmount = fill;
+        hpText.text = currentHealth.ToString() + "/" + maxHealth.ToString();
     }
 
     public void ChangeWeapon()
@@ -102,106 +111,23 @@ public class PlayerScript : MonoBehaviour
         if (!isAttack)
         {
             //Смена текущего оружия
-            if (CurrentRange == 1)
+            if (currentRange == 1)
             {
-                transform.GetChild(7).GetChild(0).transform.localScale = WeaponScale[0];
-                transform.GetChild(7).GetChild(0).transform.localPosition = WeaponPos[0];
+                transform.GetChild(7).GetChild(0).transform.localScale = weaponScale[0];
+                transform.GetChild(7).GetChild(0).transform.localPosition = weaponPos[0];
                 transform.GetChild(7).GetChild(0).transform.localRotation = GameObject.Find("ZeroButton").transform.rotation;
-                CurrentRange = 0;
+                currentRange = 0;
             }
-            else if (CurrentRange == 0)
+            else if (currentRange == 0)
             {
-                transform.GetChild(7).GetChild(0).transform.localScale = WeaponScale[1];
-                transform.GetChild(7).GetChild(0).transform.localPosition = WeaponPos[1];
+                transform.GetChild(7).GetChild(0).transform.localScale = weaponScale[1];
+                transform.GetChild(7).GetChild(0).transform.localPosition = weaponPos[1];
                 transform.GetChild(7).GetChild(0).transform.localRotation = GameObject.Find("FirstButton").transform.rotation;
-                CurrentRange = 1;
+                currentRange = 1;
             }
-            CurrentWeapon = EquipedWeapon[CurrentRange];
+
+            currentWeapon = equipedWeapon[currentRange];
         }
-    }
-
-
-
-    private void Equip(WeaponClass item)
-    {
-        //На месте предидущего оружия появляется то,что было экипированно
-        var _item = Instantiate(EquipedWeapon[item.range].GetComponent<WeaponClass>().Object); ;
-        _item.transform.position = transform.position;
-        _item.transform.localScale = new Vector3(1, 1, 1);
-        _item.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        _item.gameObject.GetComponent<CircleCollider2D>().enabled = true;
-        WeaponClass Cash;
-
-        //Кэш объект для работы имеющейся системы. В них сохраняются последние используемые предметы.   
-        Cash = Instantiate(item.transform.GetComponent<WeaponClass>());
-        //Перезапись кэш объектов
-        if (item.transform.GetComponent<WeaponClass>().range == 0)
-        {
-            PlayerPrefs.SetInt("Last Melee Weapon", PlayerPrefs.GetInt("Last Melee Weapon") + 1);
-            Cash.name = "Last Melee Weapon";
-        }
-        else
-        {
-            PlayerPrefs.SetInt("Last Range Weapon", PlayerPrefs.GetInt("Last Range Weapon") + 1);
-            Cash.name = "Last Range Weapon";
-        }
-        Cash.transform.SetParent(GameObject.Find("ServiceObjects(dd)").transform);
-        if (PlayerPrefs.GetInt("Last Melee Weapon") >= 2 && item.transform.GetComponent<WeaponClass>().range == 0)
-        {
-            Destroy(GameObject.Find("Last Melee Weapon"));
-        }
-        if (PlayerPrefs.GetInt("Last Range Weapon") >= 2 && item.transform.GetComponent<WeaponClass>().range == 1)
-        {
-            Destroy(GameObject.Find("Last Range Weapon"));
-        }
-        Destroy(item.gameObject);
-        Cash.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        Cash.gameObject.GetComponent<CircleCollider2D>().enabled = false;
-        EquipedWeapon[item.range] = Cash;
-    }
-    public void Equip(ArtifactClass item)
-    {
-        ArtifactClass Cash;
-
-        //Кэш объект для работы имеющейся системы. В них сохраняются последние используемые предметы.   
-        Cash = Instantiate(item.transform.GetComponent<ArtifactClass>());
-        Cash.transform.SetParent(GameObject.Find("ServiceObjects(dd)").transform);
-        Cash.GetComponent<Collider2D>().enabled = false;
-        Cash.transform.localScale = new Vector3(1, 1, 1);
-        Cash.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        Cash.gameObject.GetComponent<CircleCollider2D>().enabled = false;
-
-        EquipedArtifacts.Add(Cash);
-        Damage += item.GetComponent<ArtifactClass>().Damage;
-        MaxHealth += item.GetComponent<ArtifactClass>().MaxHealth;
-        if (CurrentHealth + item.GetComponent<ArtifactClass>().CurrentHealth > MaxHealth)
-            CurrentHealth = MaxHealth;
-        else
-            CurrentHealth = CurrentHealth + item.GetComponent<ArtifactClass>().CurrentHealth;
-        MovementSpeed += item.GetComponent<ArtifactClass>().MovementSpeed;
-        AttackSpeed += item.GetComponent<ArtifactClass>().AtackSpeed;
-        CriticalChanse += item.GetComponent<ArtifactClass>().CriticalChanse;
-        CriticalMultiply += item.GetComponent<ArtifactClass>().CriticalMultiply;
-        coins += item.GetComponent<ArtifactClass>().coins;
-
-
-        Destroy(item.gameObject);
-    }
-    public void Use(ConsumableClass item)
-    {
-        Damage += item.GetComponent<ConsumableClass>().Damage;
-        MaxHealth += item.GetComponent<ConsumableClass>().MaxHealth;
-        if (CurrentHealth + item.GetComponent<ConsumableClass>().CurrentHealth > MaxHealth)
-            CurrentHealth = MaxHealth;
-        else
-            CurrentHealth = CurrentHealth + item.GetComponent<ConsumableClass>().CurrentHealth;
-        MovementSpeed += item.GetComponent<ConsumableClass>().MovementSpeed;
-        AttackSpeed += item.GetComponent<ConsumableClass>().AtackSpeed;
-        CriticalChanse += item.GetComponent<ConsumableClass>().CriticalChanse;
-        CriticalMultiply += item.GetComponent<ConsumableClass>().CriticalMultiply;
-        coins += item.GetComponent<ConsumableClass>().coins;
-
-        Destroy(item.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -209,55 +135,156 @@ public class PlayerScript : MonoBehaviour
         //Вхождение в радиус подбора
         if (collision.tag == "Weapon" || collision.tag == "Artifact")
         {
-            CurrentButton = _Buttons[1];
-            EmptyForEquip = collision.gameObject;
+            currentButton = prefabButtons[1];
+            objectForInteraction = collision.gameObject;
         }
+
         if (collision.tag == "Consumable")
         {
             Use(collision.gameObject.GetComponent<ConsumableClass>());
         }
+
         if (collision.tag == "Chest")
         {
-            CurrentButton = _Buttons[2];
-            EmptyForEquip = collision.gameObject;
+            currentButton = prefabButtons[2];
+            objectForInteraction = collision.gameObject;
         }
     }
-
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         //Вхождение в радиус подбора
         if (collision.tag == "Weapon" || collision.tag == "Artifact")
         {
-            CurrentButton = _Buttons[0];
+            currentButton = prefabButtons[0];
         }
+
         if (collision.tag == "Chest")
         {
-            CurrentButton = _Buttons[0];
+            currentButton = prefabButtons[0];
         }
     }
+
     public void EquipClick()
     {
-        if (EmptyForEquip.GetComponent<WeaponClass>() != null)
-            Equip(EmptyForEquip.GetComponent<WeaponClass>());
+        if (objectForInteraction.GetComponent<WeaponClass>() != null)
+            Equip(objectForInteraction.GetComponent<WeaponClass>());
         else
-            Equip(EmptyForEquip.GetComponent<ArtifactClass>());
+            Equip(objectForInteraction.GetComponent<ArtifactClass>());
     }
+
+    public void OpenClick()
+    {
+        objectForInteraction.GetComponent<ChestScript>().Open();
+    }
+
+    private void Equip(WeaponClass weapon)
+    {
+        //На месте предидущего оружия появляется то,что было экипированно
+        var dropedItem = Instantiate(equipedWeapon[weapon.range].GetComponent<WeaponClass>().selfPrefabObject); ;
+        dropedItem.transform.position = transform.position;
+        dropedItem.transform.localScale = new Vector3(1, 1, 1);
+        dropedItem.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        dropedItem.gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        WeaponClass cash;
+
+        //Кэш объект для работы имеющейся системы. В них сохраняются последние используемые предметы.   
+        cash = Instantiate(weapon.transform.GetComponent<WeaponClass>());
+
+        //Перезапись кэш объектов
+        if (weapon.transform.GetComponent<WeaponClass>().range == 0)
+        {
+            PlayerPrefs.SetInt("Last Melee Weapon", PlayerPrefs.GetInt("Last Melee Weapon") + 1);
+            cash.name = "Last Melee Weapon";
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Last Range Weapon", PlayerPrefs.GetInt("Last Range Weapon") + 1);
+            cash.name = "Last Range Weapon";
+        }
+
+        cash.transform.SetParent(GameObject.Find("ServiceObjects(dd)").transform);
+
+        if (PlayerPrefs.GetInt("Last Melee Weapon") >= 2 && weapon.transform.GetComponent<WeaponClass>().range == 0)
+        {
+            Destroy(GameObject.Find("Last Melee Weapon"));
+        }
+
+        if (PlayerPrefs.GetInt("Last Range Weapon") >= 2 && weapon.transform.GetComponent<WeaponClass>().range == 1)
+        {
+            Destroy(GameObject.Find("Last Range Weapon"));
+        }
+
+        Destroy(weapon.gameObject);
+        cash.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        cash.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        equipedWeapon[weapon.range] = cash;
+    }
+
+    public void Equip(ArtifactClass artifact)
+    {
+        ArtifactClass cash;
+
+        //Кэш объект для работы имеющейся системы. В них сохраняются последние используемые предметы.   
+        cash = Instantiate(artifact.transform.GetComponent<ArtifactClass>());
+        cash.transform.SetParent(GameObject.Find("ServiceObjects(dd)").transform);
+        cash.GetComponent<Collider2D>().enabled = false;
+        cash.transform.localScale = new Vector3(1, 1, 1);
+        cash.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        cash.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+        equipedArtifacts.Add(cash);
+        damage += artifact.GetComponent<ArtifactClass>().damage;
+        maxHealth += artifact.GetComponent<ArtifactClass>().maxHealth;
+        
+        if (currentHealth + artifact.GetComponent<ArtifactClass>().currentHealth > maxHealth)
+            currentHealth = maxHealth;
+        else
+            currentHealth = currentHealth + artifact.GetComponent<ArtifactClass>().currentHealth;
+        
+        movementSpeed += artifact.GetComponent<ArtifactClass>().movementSpeed;
+        attackSpeed += artifact.GetComponent<ArtifactClass>().atackSpeed;
+        criticalChanse += artifact.GetComponent<ArtifactClass>().criticalChanse;
+        criticalMultiply += artifact.GetComponent<ArtifactClass>().criticalMultiply;
+        coins += artifact.GetComponent<ArtifactClass>().coins;
+
+        Destroy(artifact.gameObject);
+    }
+
+    public void Use(ConsumableClass consumable)
+    {
+        damage += consumable.GetComponent<ConsumableClass>().damage;
+        maxHealth += consumable.GetComponent<ConsumableClass>().maxHealth;
+
+        if (currentHealth + consumable.GetComponent<ConsumableClass>().currentHealth > maxHealth)
+            currentHealth = maxHealth;
+        else
+            currentHealth = currentHealth + consumable.GetComponent<ConsumableClass>().currentHealth;
+        
+        movementSpeed += consumable.GetComponent<ConsumableClass>().movementSpeed;
+        attackSpeed += consumable.GetComponent<ConsumableClass>().atackSpeed;
+        criticalChanse += consumable.GetComponent<ConsumableClass>().criticalChanse;
+        criticalMultiply += consumable.GetComponent<ConsumableClass>().criticalMultiply;
+        coins += consumable.GetComponent<ConsumableClass>().coins;
+
+        Destroy(consumable.gameObject);
+    }
+
     public void Attack()
     {
         if (!isLastAttack)
         {
-            newMS = MovementSpeed;
-            if (CurrentRange == 0)
+            newMS = movementSpeed;
+            if (currentRange == 0)
             {
-
                 //Атака ближнего боя
-                transform.GetChild(0).GetChild(0).gameObject.active = false;
-                transform.GetChild(0).GetChild(1).gameObject.active = false;
-                transform.GetChild(0).GetChild(2).gameObject.active = false;
+                transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
                 lastRoutine = StartCoroutine(MeleeAttack());
-                lastWeap = 0;
+                lastWeapon = 0;
             }
-            else if (CurrentRange == 1)
+            else if (currentRange == 1)
             {
                 //Атака дальнего боя
                 var scale = transform.GetChild(0).GetChild(3).transform.localScale;
@@ -265,109 +292,121 @@ public class PlayerScript : MonoBehaviour
                 transform.GetChild(0).GetChild(3).transform.localScale = scale;
                 transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
                 lastRoutine = StartCoroutine(RangeAttack());
-                lastWeap = 1;
+                lastWeapon = 1;
             }
+
             isAttack = true;
             canStop = true;
         }
     }
-    public void OpenClick()
-    {
-        EmptyForEquip.GetComponent<ChestScript>().Open();
-    }
+
     IEnumerator MeleeAttack()
     {
-
         yield return new WaitForSeconds(0);
-        atackTime = atackTime + Time.deltaTime*AttackSpeed;
+
+        atackTime += Time.deltaTime*attackSpeed;
+
         if (atackTime >= 0)
         {
-            MovementSpeed = newMS - newMS / 10;
+            movementSpeed = newMS - newMS / 10;
             transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-            transform.GetChild(0).GetChild(0).gameObject.active = true;
-            AdditionalDamage = 1;
+            transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+            additionalDamage = 1;
         }
+
         if (atackTime >= 0.8f)
         {
-            MovementSpeed = newMS - newMS / 3;
+            movementSpeed = newMS - newMS / 3;
             transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = true;
-            transform.GetChild(0).GetChild(1).gameObject.active = true;
-            AdditionalDamage = 2;
+            transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+            additionalDamage = 2;
         }
+
         if (atackTime >= 1.3f)
         {
-            MovementSpeed = newMS - newMS / 2;
+            movementSpeed = newMS - newMS / 2;
             transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
-            transform.GetChild(0).GetChild(2).gameObject.active = true;
-            AdditionalDamage = 3;
+            transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+            additionalDamage = 3;
         }
-        lastRoutine = StartCoroutine(MeleeAttack());
 
+        lastRoutine = StartCoroutine(MeleeAttack());
     }
+
     IEnumerator RangeAttack()
     {
         yield return new WaitForSeconds(0);
+
         var scale = transform.GetChild(0).GetChild(3).transform.localScale;
+
         if (scale.y < 4.5f)
-            scale.y += Time.deltaTime * AttackSpeed * 1.3f;
+            scale.y += Time.deltaTime * attackSpeed * 1.3f;
+
         transform.GetChild(0).GetChild(3).transform.localScale = scale;
+
         if (atackTime >= 0)
         {
-            MovementSpeed = newMS - newMS / 10;
+            movementSpeed = newMS - newMS / 10;
             transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
-            transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = EquipedWeapon[1].WeaponSprite[0];
+            transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = equipedWeapon[1].weaponSprite[0];
             transform.GetChild(7).GetChild(0).transform.localPosition = new Vector2(-0.156f, -0.126f);
-            AdditionalDamage = 1;
+            additionalDamage = 1;
         }
-        atackTime = atackTime + Time.deltaTime * AttackSpeed;
+
+        atackTime = atackTime + Time.deltaTime * attackSpeed;
+
         if (atackTime >= 1)
         {
-            MovementSpeed = newMS - newMS / 3;
+            movementSpeed = newMS - newMS / 3;
             transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().color = Color.yellow;
-            transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = EquipedWeapon[1].WeaponSprite[1];
+            transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = equipedWeapon[1].weaponSprite[1];
             transform.GetChild(7).GetChild(0).transform.localPosition = new Vector2(-0.564f, -0.013f);
-            AdditionalDamage = 2;
+            additionalDamage = 2;
         }
+
         if (atackTime >= 1.5f)
         {
             
-            MovementSpeed = newMS - newMS / 2;
+            movementSpeed = newMS - newMS / 2;
             transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().color = Color.green;
-            transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = EquipedWeapon[1].WeaponSprite[1];
+            transform.GetChild(7).GetChild(0).GetComponent<SpriteRenderer>().sprite = equipedWeapon[1].weaponSprite[1];
             transform.GetChild(7).GetChild(0).transform.localPosition = new Vector2(-0.564f, -0.013f);
-            AdditionalDamage = 3;
+            additionalDamage = 3;
         }
-        lastRoutine = StartCoroutine(RangeAttack());
 
+        lastRoutine = StartCoroutine(RangeAttack());
     }
+
     public void StopAtack()
     {
         if (!isLastAttack && canStop)
         {
-            MovementSpeed = newMS;
-            if (lastWeap == 0 && !isWall)
+            movementSpeed = newMS;
+
+            if (lastWeapon == 0 && !isWall)
             {
                 var anim = transform.GetChild(0).GetComponent<Animation>();
                 anim.Play("Sword Attack");
             }
-            else if (lastWeap == 1)
+            else if (lastWeapon == 1)
             {
                 transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-                var _arrow = Instantiate(Arrow, transform.position, transform.GetChild(0).rotation);
-                _arrow.GetComponent<Arrowscript>().startPos = transform.position;
-                _arrow.GetComponent<Arrowscript>().distance = transform.GetChild(0).GetChild(3).transform.localScale.y * 2.1f;
-                _arrow.GetComponent<Arrowscript>().Damage = AdditionalDamage;
+                var arrow = Instantiate(this.arrow, transform.position, transform.GetChild(0).rotation);
+                arrow.GetComponent<Arrowscript>().startPos = transform.position;
+                arrow.GetComponent<Arrowscript>().distance = transform.GetChild(0).GetChild(3).transform.localScale.y * 2.1f;
+                arrow.GetComponent<Arrowscript>().damage = additionalDamage;
                 transform.GetChild(7).GetChild(0).transform.localPosition = new Vector2(-0.156f, -0.126f);
             }
-            else if (lastWeap == 0 && isWall)
+            else if (lastWeapon == 0 && isWall)
             {
                 transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-                transform.GetChild(0).GetChild(0).gameObject.active = false;
+                transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
                 transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
-                transform.GetChild(0).GetChild(1).gameObject.active = false;
+                transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                 transform.GetChild(0).GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
-                transform.GetChild(0).GetChild(2).gameObject.active = false;
+                transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
             }
+
             StopCoroutine(lastRoutine);
             StartCoroutine(NextAttack());
             atackTime = 0;
@@ -375,30 +414,29 @@ public class PlayerScript : MonoBehaviour
             isLastAttack = true;    
             canStop = false;
         }
+
         StopCoroutine("TryToAttack");
     }
+
     IEnumerator NextAttack()
     {
-        yield return new WaitForSeconds(AttackDelay);
+        yield return new WaitForSeconds(attackDelay);
+
         isLastAttack = false;
         lastRoutine = null;
     }
-    IEnumerator StartWeapPos()
-    {
-        yield return new WaitForSeconds(0.5f);
-        var pos = new Vector3(0, 0, 0);
-        transform.GetChild(0).transform.localPosition = pos;
-    }
-    public void TryTAttack()
+
+    public void CallTryToAttack()
     {
         StartCoroutine("TryToAttack");
     }
+
     IEnumerator TryToAttack()
     {
         yield return new WaitForSeconds(0.001f);
+
         if (lastRoutine == null )
         {
-            //StopCoroutine("TryToAttack");
             Attack();
         }
         else
