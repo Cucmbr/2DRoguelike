@@ -55,12 +55,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0
-  Weapondamage: 10
-  WeaponSprite:
+  weaponDamage: 5
+  weaponSprite:
   - {fileID: 21300000, guid: 208116404183e134e9bddcfe6268b878, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  Object: {fileID: 6104590483570735706}
+  selfPrefabObject: {fileID: 6104590483570735706}
 --- !u!58 &-2797958332333167520
 CircleCollider2D:
   m_ObjectHideFlags: 0

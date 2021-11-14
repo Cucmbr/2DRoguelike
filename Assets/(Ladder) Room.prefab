@@ -506,6 +506,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -997
       objectReference: {fileID: 0}
+    - target: {fileID: 1224895668200827357, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1481778291667357279, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1826,6 +1830,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -998
       objectReference: {fileID: 0}
+    - target: {fileID: 5316391394629756918, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5669989520629382197, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -2809,6 +2817,14 @@ PrefabInstance:
     - target: {fileID: 7922964700085444177, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
       propertyPath: m_ColliderPaths.Array.data[7].m_ColliderPaths.Array.data[0].Array.data[3].Y
       value: -25088000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8399065812458563544, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069649698892152125, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4189969519978908262, guid: 76d1be8795e869d4498f9c29f69c9535, type: 3}
